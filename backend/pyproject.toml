@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = ""
+authors = ["rrraumpanzer <ayylmao3713@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.115.12"
+uvicorn = "^0.34.0"
+sqlalchemy = "^2.0.40"
+alembic = "^1.15.2"
+psycopg2-binary = "^2.9.10"
+python-dotenv = "^1.1.0"
+pydantic = "^2.11.2"
+pydantic-settings = "^2.8.1"
+asyncpg = "^0.30.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+package-mode = false
