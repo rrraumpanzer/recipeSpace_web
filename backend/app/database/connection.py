@@ -1,6 +1,9 @@
 from psycopg2 import connect, OperationalError
+from dotenv import load_dotenv
 import os
  
+load_dotenv()
+
 async def get_db_connection():
     """
     Асинхронная функция для получения соединения с базой данных.

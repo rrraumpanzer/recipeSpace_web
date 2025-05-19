@@ -3,8 +3,7 @@ from fastapi.responses import JSONResponse, Response
 from .database.connection import get_db_connection, close_db_connection 
 from sqlalchemy.orm import Session
 from typing import List
-from .models.test import *
-from .database.base import Base
+from .database.base import *
 app = FastAPI()
 
 @app.get('/test')
@@ -22,7 +21,7 @@ async def add_string(item: TextItem):
     
     try:
         with conn.cursor() as cur:
-            cur.execute("INSERT INTO text_table (message) VALUES (%s)", (item.text,)) 
+            cur.execute("INSERT INTO text_table (text) VALUES (%s)", (item.text,)) 
             conn.commit() 
         return JSONResponse(status_code=201, content={"message": "Строка успешно добавлена!"})
     except Exception as e:
