@@ -4,7 +4,10 @@ from .database.connection import get_db_connection, close_db_connection
 from sqlalchemy.orm import Session
 from typing import List
 from .database.base import *
+from .api.routes.users import user_router
 app = FastAPI()
+
+app.include_router(user_router, prefix="/user")
 
 @app.get('/test')
 async def reply():
@@ -13,6 +16,7 @@ async def reply():
 @app.post("/add_string") 
 async def add_string(item: TextItem):
     """
+    Тестовый эндпоинт.
     Добавляет переданную строку в базу данных.
     """
     conn = await get_db_connection()
@@ -29,14 +33,7 @@ async def add_string(item: TextItem):
         raise HTTPException(status_code=500, detail=f"Ошибка при добавлении строки: {e}")
     finally:
         await close_db_connection(conn)
-
-#@app.post("/users/", response_model=User)
-#def create_user(user: UserCreate, db: Session = Depends(get_db_connection)):
-    #db_user = crud.get_user_by_email(db, email=user.email)
-    #if db_user:
-    #    raise HTTPException(status_code=400, detail="Email already registered")
-    #return crud.create_user(db=db, user=user)
-
+        
 if __name__ == "app":
     import uvicorn
-    uvicorn.run("app:app", log_level="debug", reload=True)
+    uvicorn.run("app.main:app", log_level="debug", reload=True)

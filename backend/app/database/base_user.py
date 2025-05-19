@@ -24,4 +24,4 @@ class UserInDB(UserBase):
     updated_at: datetime
 
     class Config:
-        from_attributes = True  # Заменило orm_mode в Pydantic v2
+        from_attributes = True

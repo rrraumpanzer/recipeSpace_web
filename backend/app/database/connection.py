@@ -27,3 +27,13 @@ async def close_db_connection(conn):
     """
     if conn:
         conn.close()
+
+async def get_db():
+    """
+    Асинхронная функция, для открытия и автоматического закрытия соединения с базой данных.
+    """
+    conn = await get_db_connection()
+    try:
+        yield conn
+    finally:
+        await close_db_connection(conn)
