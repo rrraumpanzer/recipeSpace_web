@@ -45,3 +45,7 @@ PGPASSWORD=пароль psql -U web_rsp_service -d recipespace_database -h 127.0
 
 
 http POST http://localhost:8000/add_string text="Тест" - проверка связи с БД
+http POST http://localhost:8000/add_string text="Тест4";
+http POST http://localhost:8000/user/signup username="Ivan" email="ivan2@example.com" password="strongpassword123";
+http -v PATCH http://localhost:8000/user/update/2 bio="Тестовая биография";
+http -v DELETE http://localhost:8000/user/delete/2;
