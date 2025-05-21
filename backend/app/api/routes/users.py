@@ -1,20 +1,25 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from app.database.base_user import UserBase, UserCreate, UserUpdate, UserInDB
 from app.database.connection import get_db
-from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from passlib.context import CryptContext
 from psycopg2 import IntegrityError
-from datetime import datetime
+from datetime import datetime, timedelta
 import logging
+from app.api.auth import (
+    create_access_token,
+    get_current_user,
+    get_current_active_user,
+    verify_password,
+    ACCESS_TOKEN_EXPIRE_MINUTES,
+    pwd_context
+)
 logger = logging.getLogger(__name__)
 
 
 user_router = APIRouter(
     tags=["User"],
 )
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 @user_router.post("/signup", response_model=UserInDB, status_code=status.HTTP_201_CREATED)
 async def sign_user_up(user: UserCreate, session = Depends(get_db)) -> dict:
@@ -209,3 +214,46 @@ async def delete_user(user_id: int, session = Depends(get_db)) -> dict:
         )
     finally:
         session.close()
+
+
+
+@user_router.post("/token")
+async def login_for_access_token(
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    session = Depends(get_db)
+):
+    with session.cursor() as cursor:
+        cursor.execute(
+            "SELECT id, username, email, password_hash FROM users WHERE username = %s",
+            (form_data.username,)
+        )
+        user = cursor.fetchone()
+        
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Incorrect username or password",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        
+        # Преобразуем результат в словарь
+        columns = [desc[0] for desc in cursor.description]
+        user_dict = dict(zip(columns, user))
+        
+        if not verify_password(form_data.password, user_dict["password_hash"]):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Incorrect username or password",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        
+        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        access_token = create_access_token(
+            data={"sub": user_dict["username"]}, expires_delta=access_token_expires
+        )
+        
+        return {"access_token": access_token, "token_type": "bearer"}
+
+@user_router.get("/me/", response_model=UserInDB)
+async def read_users_me(current_user: dict = Depends(get_current_active_user)):
+    return current_user

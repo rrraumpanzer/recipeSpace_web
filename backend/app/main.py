@@ -5,9 +5,11 @@ from sqlalchemy.orm import Session
 from typing import List
 from .database.base import *
 from .api.routes.users import user_router
+from .api.routes.recipes import recipe_router
 app = FastAPI()
 
 app.include_router(user_router, prefix="/user")
+app.include_router(recipe_router, prefix="/recipe")
 
 @app.get('/test')
 async def reply():
