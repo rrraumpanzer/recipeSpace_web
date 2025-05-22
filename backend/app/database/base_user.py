@@ -21,7 +21,7 @@ class UserInDB(UserBase):
     profile_picture: Optional[str] = None
     is_active: bool = True
     created_at: datetime
-    updated_at: datetime
+    updated_at: Optional[datetime] = None
 
     class Config:
         from_attributes = True

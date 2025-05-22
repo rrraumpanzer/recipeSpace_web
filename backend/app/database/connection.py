@@ -1,39 +1,21 @@
-from psycopg2 import connect, OperationalError
 from dotenv import load_dotenv
 import os
- 
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 load_dotenv()
 
-async def get_db_connection():
-    """
-    Асинхронная функция для получения соединения с базой данных.
-    """
-    try:
-        conn = connect(
-            database="recipespace_database",
-            user="web_rsp_service",
-            password=os.environ.get('DB_PASSWORD'),
-            host="localhost",
-            port="5432"
-        )
-        return conn
-    except OperationalError as e:
-        print(f"Ошибка подключения к базе данных: {e}")
-        return None
+DATABASE_URL: str = 'postgresql://web_rsp_service:Qici45d@localhost:5432/recipespace_database'
+# postgresql://user:password@host:port/database
 
-async def close_db_connection(conn):
-    """
-    Асинхронная функция для закрытия соединения с базой данных.
-    """
-    if conn:
-        conn.close()
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-async def get_db():
-    """
-    Асинхронная функция, для открытия и автоматического закрытия соединения с базой данных.
-    """
-    conn = await get_db_connection()
+Base = declarative_base()
+
+def get_db():
+    db = SessionLocal()
     try:
-        yield conn
+        yield db
     finally:
-        await close_db_connection(conn)
+        db.close()

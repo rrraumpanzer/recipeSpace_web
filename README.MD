@@ -49,3 +49,6 @@ http POST http://localhost:8000/add_string text="Тест4";
 http POST http://localhost:8000/user/signup username="Ivan" email="ivan2@example.com" password="strongpassword123";
 http -v PATCH http://localhost:8000/user/update/2 bio="Тестовая биография";
 http -v DELETE http://localhost:8000/user/delete/2;
+http --form POST http://localhost:8000/user/token username="Ivan" password="strongpassword123"
+http GET http://localhost:8000/user/me/ "Authorization: Bearer *********"  Вместо звёздочек подставить пароль
+http GET http://localhost:8000/user/me/ Без авторизации
