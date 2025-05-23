@@ -93,7 +93,7 @@ async def update_user(
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
-    for field, value in user_data.dict(exclude_unset=True).items():
+    for field, value in user_data.model_dump(exclude_unset=True).items():
         if field == "password":
             user.password_hash = pwd_context.hash(value)
         else:

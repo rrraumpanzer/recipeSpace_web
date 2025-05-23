@@ -29,8 +29,8 @@ def upgrade() -> None:
         sa.Column('bio', sa.String, nullable=True),
         sa.Column('profile_picture', sa.String, nullable=True),
         sa.Column('is_active', sa.Boolean, default=True),
-        sa.Column('created_at', sa.DateTime(timezone=True)),
-        sa.Column('updated_at', sa.DateTime(timezone=True)),
+        sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.func.now()),
+        sa.Column('updated_at', sa.DateTime(timezone=True), onupdate=sa.func.now()),
     )
     pass
 

@@ -25,7 +25,7 @@ def upgrade() -> None:
         sa.Column('id', sa.Integer, primary_key=True, index=True),
         sa.Column('title', sa.String(100)),
         sa.Column('description', sa.String(255), nullable=True),
-        sa.Column('ingridients', sa.ARRAY(sa.String)),
+        sa.Column('ingredients', sa.ARRAY(sa.String)),
         sa.Column('cooking_time_minutes', sa.Integer),
         sa.Column('difficulty', sa.SmallInteger),
         sa.Column('image', sa.String(255), nullable=True),
@@ -33,8 +33,8 @@ def upgrade() -> None:
         sa.Column('author_id', sa.Integer, sa.ForeignKey('users.id')),
         sa.Column('likes_count', sa.Integer, default=0),
 
-        sa.Column('created_at', sa.DateTime(timezone=True)),
-        sa.Column('updated_at', sa.DateTime(timezone=True)),
+        sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.func.now()),
+        sa.Column('updated_at', sa.DateTime(timezone=True), onupdate=sa.func.now()),
     )
     pass
 

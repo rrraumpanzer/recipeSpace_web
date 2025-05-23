@@ -1,10 +1,6 @@
-from datetime import datetime
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, ARRAY, SmallInteger
 from sqlalchemy.sql import func
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
-
+from app.database.connection import Base
 class Recipe(Base):
     __tablename__ = 'recipes'
     
@@ -12,14 +8,14 @@ class Recipe(Base):
     title = Column(String(100), nullable=False)
     description = Column(String(255), nullable=False)
     ingredients = Column(ARRAY(String), nullable=False)
-    cooking_time = Column(Integer, nullable=False)
+    cooking_time_minutes = Column(Integer, nullable=False)
     difficulty = Column(SmallInteger, nullable=False)
     image = Column(String(255))
     steps = Column(Text)  #Использую markdown
 
     author_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    created_at = Column(DateTime, server_default=func.now())
-    updated_at = Column(DateTime, onupdate=func.now())
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     likes_count = Column(Integer, default=0)
     
     
