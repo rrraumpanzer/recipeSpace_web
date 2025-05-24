@@ -76,6 +76,28 @@ async def create_new_recipe(
     
     return new_recipe
 
+@recipe_router.get("/{recipe_id}", response_model=RecipeInDB)
+async def fetch_recipe(
+    recipe_id: int,
+    db: Session = Depends(get_db),
+):
+    """
+    Получение данных рецепта
+    
+    Аргументы:
+        recipe_id: Идентификатор рецепта
+        db: Сессия
+    
+    Возвращает:
+        Данные рецепта
+    """
+    print("\033[33m DEBUG: \033[0m" + f'Проверка на наличие рецепта с ID {recipe_id} в БД.')
+    recipe = db.query(Recipe).filter(Recipe.id == recipe_id).first()
+    if not recipe:
+        raise HTTPException(status_code=404, detail="Recipe not found")
+    return recipe
+
+
 @recipe_router.patch("/update/{recipe_id}", response_model=RecipeInDB)
 async def update_user(
     recipe_id: int,
