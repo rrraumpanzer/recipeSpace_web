@@ -63,6 +63,27 @@ async def sign_user_up(
     
     return new_user
 
+@user_router.get("/{user_id}", response_model=UserInDB)
+async def fetch_user(
+    user_id: int,
+    db: Session = Depends(get_db)
+):
+    """
+    Получение данных о пользователе.
+    
+    Аргументы:
+        user_id: Идентификатор пользователя.
+        db: Сессия
+    
+    Возвращает: 
+        Данные пользователя.
+    """
+    print("\033[33m DEBUG: \033[0m" + f'Проверка на наличие пользователя с ID {user_id} в БД.')
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
 
 @user_router.patch("/update/{user_id}", response_model=UserInDB)
 async def update_user(
