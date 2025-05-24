@@ -25,6 +25,7 @@ def upgrade() -> None:
         sa.Column('id', sa.Integer, primary_key=True, index=True),
         sa.Column('title', sa.String(100)),
         sa.Column('description', sa.String(255), nullable=True),
+        sa.Column('tags', sa.ARRAY(sa.String)),
         sa.Column('ingredients', sa.ARRAY(sa.String)),
         sa.Column('cooking_time_minutes', sa.Integer),
         sa.Column('difficulty', sa.SmallInteger),

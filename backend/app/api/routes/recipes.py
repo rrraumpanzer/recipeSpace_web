@@ -60,6 +60,7 @@ async def create_new_recipe(
     new_recipe = Recipe(
         title=recipe.title,
         description=recipe.description,
+        tags=recipe.tags,
         ingredients=recipe.ingredients,
         cooking_time_minutes=recipe.cooking_time_minutes,
         difficulty=recipe.difficulty,

@@ -7,6 +7,7 @@ class Recipe(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(100), nullable=False)
     description = Column(String(255), nullable=False)
+    tags = Column(ARRAY(String), nullable=False)
     ingredients = Column(ARRAY(String), nullable=False)
     cooking_time_minutes = Column(Integer, nullable=False)
     difficulty = Column(SmallInteger, nullable=False)

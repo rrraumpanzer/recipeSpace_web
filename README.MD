@@ -52,3 +52,8 @@ http -v DELETE http://localhost:8000/user/delete/2;
 http --form POST http://localhost:8000/user/token username="Ivan" password="strongpassword123"
 http GET http://localhost:8000/user/me/ "Authorization: Bearer *********"  Вместо звёздочек подставить пароль
 http GET http://localhost:8000/user/me/ Без авторизации
+
+http POST http://localhost:8000/recipe/create title="Рыба под шоколадом" description="Всё понятно из названия" ingredients:='["fish", "chocolade"]' cooking_time_minutes=10 difficulty=1 steps="fsfas" author_id=1 "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MDMwODA4fQ.kkVwxFEMDm6GS6q3k4LRMgemF2m4FNbFmryYpsxjejQ"
+
+http PATCH http://localhost:8000/recipe/update/1 description="Ничего не понятно из названия" "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV
+CJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MDMwODA4fQ.kkVwxFEMDm6GS6q3k4LRMgemF2m4FNbFmryYpsxjejQ"

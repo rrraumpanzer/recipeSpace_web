@@ -7,6 +7,7 @@ from pydantic import BaseModel
 class RecipeBase(BaseModel):
     title: str
     description: Optional[str] = None
+    tags: List[str]
     ingredients: List[str]
     cooking_time_minutes: int
     difficulty: int
@@ -22,6 +23,7 @@ class RecipeCreate(RecipeBase):
 class RecipeUpdate(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
+    tags: Optional[List[str]] = None
     ingredients: Optional[List[str]] = None
     cooking_time_minutes: Optional[int] = None
     difficulty: Optional[int] = None
