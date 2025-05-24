@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
 from app.database.base_recipe import RecipeBase, RecipeCreate, RecipeInDB, RecipeUpdate
 from app.database.connection import get_db
 from fastapi.security import OAuth2PasswordBearer
@@ -10,6 +10,10 @@ from app.api.auth import get_current_active_user
 from datetime import datetime
 from psycopg2 import IntegrityError
 import logging
+import aiofiles
+import uuid
+import os
+IMAGES_DIR = "static/images"
 
 logger = logging.getLogger(__name__)
 
@@ -133,6 +137,69 @@ async def update_user(
     db.commit()
     db.refresh(recipe)
     return recipe
+
+@recipe_router.post("/upload-image/{recipe_id}")
+async def upload_image(
+    recipe_id: int,
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user),  
+):
+    """
+    Загрузка новой обложки рецепта.
+    
+    Аргументы:
+        recipe_id: Идентификатор изменяемого пользователя
+        file: Файл полученный из формы
+        db: Сессия
+        current_user: Словарь с данными аутентифицированного пользователя
+    
+    Возвращает:
+        {"message":"Avatar uploaded!", "path":"Путь к файлу в папке /static"}
+    """
+    print("\033[33m DEBUG: \033[0m" + f'Смена обложки рецепта с ID {recipe_id}.')
+    print("\033[33m DEBUG: \033[0m" + f'Проверка на наличие рецепта с ID {recipe_id} в БД.')
+    recipe = db.query(Recipe).filter(Recipe.id == recipe_id).first()
+    if not recipe:
+        raise HTTPException(status_code=404, detail="Recipe not found")
+
+    if current_user.id != recipe.author_id:
+        raise HTTPException(status_code=403, detail="Cannot edit somebody else's recipe")
+    
+    print("\033[33m DEBUG: \033[0m" + f'Валидация файла.')
+    allowed_extensions = {"jpg", "jpeg", "png"}
+    file_extension = file.filename.split(".")[-1].lower()
+    if file_extension not in allowed_extensions:
+        raise HTTPException(status_code=400, detail="Invalid file type")
+    
+    if file.size > 5 * 1024 * 1024:  # 5MB
+        raise HTTPException(status_code=400, detail="File too large")
+
+    print("\033[33m DEBUG: \033[0m" + f'Генерация нового имени файла.')
+    new_filename = f"{uuid.uuid4()}.{file_extension}"
+    file_path = os.path.join(IMAGES_DIR, new_filename)
+
+    print("\033[33m DEBUG: \033[0m" + f'Асинхронное сохранение файла.')
+    try:
+        async with aiofiles.open(file_path, "wb") as buffer:
+            await buffer.write(await file.read())
+        
+        if recipe.image:
+            print("\033[33m DEBUG: \033[0m" + f'Удаление прошлой обложки.')
+            old_path = os.path.join(IMAGES_DIR, os.path.basename(recipe.image))
+            if os.path.exists(old_path):
+                os.unlink(old_path)
+        print("\033[33m DEBUG: \033[0m" + f'Запись пути к новой обложке в БД.')
+        image_path = f"/static/avatars/{new_filename}"
+        recipe.image = image_path
+        db.commit()
+        
+        return {"message": "Image uploaded!", "path": image_path}
+    
+    except Exception as e:
+        if os.path.exists(file_path):
+            os.unlink(file_path)
+        raise HTTPException(status_code=500, detail=str(e))
 
 @recipe_router.delete("/delete/{recipe_id}", response_model=None)
 async def delete_recipe(

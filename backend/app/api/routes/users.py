@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
 from fastapi.staticfiles import StaticFiles
 AVATARS_DIR = "static/avatars"
 import os
+import aiofiles
 import uuid
 from app.database.base_user import UserBase, UserCreate, UserUpdate, UserInDB
 from app.models.user import User
@@ -127,33 +128,64 @@ async def update_user(
 @user_router.post("/upload-avatar/{user_id}")
 async def upload_avatar(
     user_id: int,
-    user_data: UserUpdate, 
     file: UploadFile = File(...),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user),  
 ):
+    """
+    Загрузка нового аватара пользователя.
     
+    Аргументы:
+        user_id: Идентификатор изменяемого пользователя
+        file: Файл полученный из формы
+        db: Сессия
+        current_user: Словарь с данными аутентифицированного пользователя
+    
+    Возвращает:
+        {"message":"Avatar uploaded!", "path":"Путь к файлу в папке /static"}
+    """
+    print("\033[33m DEBUG: \033[0m" + f'Смена аватара пользователя с ID {user_id}.')
     if current_user.id != user_id:
         raise HTTPException(status_code=403, detail="Cannot update another user")
     
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    # Генерируем уникальное имя файла
-    file_extension = file.filename.split(".")[-1]
+    
+    print("\033[33m DEBUG: \033[0m" + f'Валидация файла.')
+    allowed_extensions = {"jpg", "jpeg", "png"}
+    file_extension = file.filename.split(".")[-1].lower()
+    if file_extension not in allowed_extensions:
+        raise HTTPException(status_code=400, detail="Invalid file type")
+    
+    if file.size > 5 * 1024 * 1024:  # 5MB
+        raise HTTPException(status_code=400, detail="File too large")
+
+    print("\033[33m DEBUG: \033[0m" + f'Генерация нового имени файла.')
     new_filename = f"{uuid.uuid4()}.{file_extension}"
     file_path = os.path.join(AVATARS_DIR, new_filename)
 
-    # Сохраняем файл на сервер
-    with open(file_path, "wb") as buffer:
-        buffer.write(await file.read())
-
-    # Обновляем путь в БД (здесь должна быть логика обновления записи пользователя)
-    # Например:
-    # db.query(User).filter(User.id == user_id).update({"avatar_path": f"/static/avatars/{new_filename}"})
-    # db.commit()
-
-    return {"message": "Avatar uploaded!", "path": f"/static/avatars/{new_filename}"}
+    print("\033[33m DEBUG: \033[0m" + f'Асинхронное сохранение файла.')
+    try:
+        async with aiofiles.open(file_path, "wb") as buffer:
+            await buffer.write(await file.read())
+        
+        if user.profile_picture:
+            print("\033[33m DEBUG: \033[0m" + f'Удаление прошлого аватара.')
+            old_path = os.path.join(AVATARS_DIR, os.path.basename(user.profile_picture))
+            if os.path.exists(old_path):
+                os.unlink(old_path)
+        print("\033[33m DEBUG: \033[0m" + f'Запись пути к новому аватару в БД.')
+        avatar_path = f"/static/avatars/{new_filename}"
+        user.profile_picture = avatar_path
+        db.commit()
+        
+        return {"message": "Avatar uploaded!", "path": avatar_path}
+    
+    except Exception as e:
+        if os.path.exists(file_path):
+            os.unlink(file_path)
+        raise HTTPException(status_code=500, detail=str(e))
 
 @user_router.delete("/delete/{user_id}", response_model=None)
 async def delete_user(user_id: int, db: Session = Depends(get_db)) -> dict:
