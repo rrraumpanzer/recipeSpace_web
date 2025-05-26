@@ -53,7 +53,9 @@ http --form POST http://localhost:8000/user/token username="Ivan" password="stro
 http GET http://localhost:8000/user/me/ "Authorization: Bearer *********"  Вместо звёздочек подставить пароль
 http GET http://localhost:8000/user/me/ Без авторизации
 
-http POST http://localhost:8000/recipe/create title="Рыба под шоколадом" description="Всё понятно из названия" ingredients:='["fish", "chocolade"]' cooking_time_minutes=10 difficulty=1 steps="fsfas" author_id=1 "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MDMwODA4fQ.kkVwxFEMDm6GS6q3k4LRMgemF2m4FNbFmryYpsxjejQ"
+http POST http://localhost:8000/recipe/create title="Рыба под шоколадом" description="Всё понятно из названия" tags:='["fish"]' ingredients:='["fish", "chocolade"]' cooking_time_minutes=10 difficulty=1 steps="fsfas" author_id=1 "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MDk4NDQ5fQ.GKb5DYTYn_42NI-H-RKn5zX823d8cjtWp6bbnu_tvps"
 
-http PATCH http://localhost:8000/recipe/update/1 description="Ничего не понятно из названия" "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV
-CJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MDMwODA4fQ.kkVwxFEMDm6GS6q3k4LRMgemF2m4FNbFmryYpsxjejQ"
+http --form POST http://localhost:8000/user/upload-avatar/1   "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjo
+xNzQ4MDk4NDQ5fQ.GKb5DYTYn_42NI-H-RKn5zX823d8cjtWp6bbnu_tvps"   file@./temp/catto.png
+
+http --form POST http://localhost:8000/recipe/upload-image/1  "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MTAxNDM5fQ.rabwnvX_0Tt4x5DpzFwNvfWtobZdbYyKBuut7mI8Hck" file@./temp/fisheauchokolat.png

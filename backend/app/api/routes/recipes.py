@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
+from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Query
 from app.database.base_recipe import RecipeBase, RecipeCreate, RecipeInDB, RecipeUpdate
 from app.database.connection import get_db
 from fastapi.security import OAuth2PasswordBearer
@@ -80,6 +80,7 @@ async def create_new_recipe(
     
     return new_recipe
 
+
 @recipe_router.get("/{recipe_id}", response_model=RecipeInDB)
 async def fetch_recipe(
     recipe_id: int,
@@ -137,6 +138,7 @@ async def update_user(
     db.commit()
     db.refresh(recipe)
     return recipe
+
 
 @recipe_router.post("/upload-image/{recipe_id}")
 async def upload_image(
@@ -246,3 +248,22 @@ async def delete_recipe(
             detail="Internal server error"
         )
 
+@recipe_router.get("/", response_model=list[RecipeInDB])
+async def fetch_recipes(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(10, ge=1, le=100),
+    db: Session = Depends(get_db),
+):
+    """
+    Получение списка рецептов с пагинацией
+    
+    Аргументы:
+        skip: Сколько рецептов пропустить
+        limit: Сколько рецептов вернуть (максимум 100)
+        db: Сессия
+    
+    Возвращает:
+        Список рецептов
+    """
+    recipes = db.query(Recipe).offset(skip).limit(limit).all()
+    return recipes
