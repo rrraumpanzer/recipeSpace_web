@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const api = createApi({
-  reducerPath: 'api',
+export const userApi = createApi({
+  reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: 'http://localhost:8000',
+    baseUrl: 'http://localhost:8000/user',
     prepareHeaders: (headers) => {
       // Если есть токен, добавляем его в заголовки
       const token = localStorage.getItem('token');
@@ -23,7 +23,7 @@ export const api = createApi({
     formData.append('password', userData.password);
     
     return {
-      url: '/user/signup',
+      url: '/signup',
       method: 'POST',
       body: formData,
       }
@@ -38,7 +38,7 @@ export const api = createApi({
       formData.append('password', userData.password);
       
       return {
-        url: '/user/token',
+        url: '/token',
         method: 'POST',
         body: formData,
       }
@@ -47,18 +47,18 @@ export const api = createApi({
   
   // Получение данных текущего пользователя
   getMe: builder.query({
-    query: () => '/user/me',
+    query: () => '/me',
   }),
   
   // Получение данных пользователя по ID
   getUser: builder.query({
-    query: (userId) => `/user/get?id=${userId}`,
+    query: (userId) => `/get?id=${userId}`,
   }),
   
   // Обновление данных пользователя
   updateUser: builder.mutation({
     query: (userData) => ({
-      url: '/user/update',
+      url: '/update',
       method: 'PUT',
       body: userData,
     }),
@@ -70,7 +70,7 @@ export const api = createApi({
       const formData = new FormData();
       formData.append('file', file);
       return {
-        url: '/user/upload-avatar',
+        url: '/upload-avatar',
         method: 'POST',
         body: formData,
       };
@@ -80,7 +80,7 @@ export const api = createApi({
   // Удаление пользователя
   deleteUser: builder.mutation({
     query: () => ({
-      url: '/user/delete',
+      url: '/delete',
       method: 'DELETE',
       }),
     }),

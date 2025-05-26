@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useRegisterUserMutation, useLoginUserMutation } from '../../api/api';
+import { useRegisterUserMutation, useLoginUserMutation } from '../../api/userApi';
 import './AuthModal.css';
 
 const AuthModal = ({ isOpen, onClose, onLoginSuccess }) => {
