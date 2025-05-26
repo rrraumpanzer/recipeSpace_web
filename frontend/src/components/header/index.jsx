@@ -25,6 +25,7 @@ function Header() {
   const handleAuthClick = () => {
     if (isLoggedIn) {
       dispatch(logout());
+      dispatch(closeModal());
     } else {
       dispatch(openModal());
     }
@@ -33,7 +34,7 @@ function Header() {
   return (
     <header className="header">
       <div className="header-content">
-        <h1 className="site-title">recipeSpace</h1>
+        <h1><Link to={`/`} className="site-title">recipeSpace</Link></h1>
         
         <div className="user-section">
           {isLoggedIn && currentUser && (

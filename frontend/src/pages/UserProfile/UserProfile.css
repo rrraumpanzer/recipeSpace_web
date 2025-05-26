@@ -1,8 +1,8 @@
-.user-profile-container {
+.user-profile {
   max-width: 800px;
   margin: 2rem auto;
   padding: 1rem;
-  background-color: #fff;
+  background-color: #555555;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -23,13 +23,13 @@
 
 .user-username {
   margin: 0;
-  color: #333;
+  color: #FFE8CD;
 }
 
 .user-bio {
   font-size: 1rem;
   line-height: 1.5;
-  color: #666;
+  color: #FFE8CD;
 }
 
 .user-stats {
@@ -38,4 +38,7 @@
   color: #888;
 }
 
-/* Добавьте другие стили по необходимости */
+.isown-tag {
+    border: 1 rem;
+    color: #ff6b6b;
+}

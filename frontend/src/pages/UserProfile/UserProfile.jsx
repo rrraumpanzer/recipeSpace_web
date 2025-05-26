@@ -54,10 +54,13 @@ function UserProfile() {
             src={getImageUrl(userData.profile_picture)} 
             alt={`Аватар ${userData.username}`} 
             className="user-avatar"
+            onError={(e) => {
+                  e.target.src = '../src/assets/default.svg';
+            }}
           />
         )}
         <h1>{userData.username}</h1>
-        {isOwnProfile && <span>(Это вы)</span>}
+      <div className='isown-tag'>{isOwnProfile && <span>(Это вы)</span>}</div>
       </div>
       
       {userData.bio && <p className="user-bio">{userData.bio}</p>}

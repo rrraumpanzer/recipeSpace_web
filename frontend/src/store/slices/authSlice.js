@@ -46,8 +46,9 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.token = null;
-      state.currentUser;
+      state.currentUser = null;
       localStorage.removeItem('token');
+      state.isModalOpen = false;
     },
     setUser: (state, action) => {
       state.currentUser = action.payload;
