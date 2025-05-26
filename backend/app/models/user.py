@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from sqlalchemy.sql import func
+from sqlalchemy.orm import relationship
 from app.database.connection import Base
 
 class User(Base):
@@ -12,5 +13,6 @@ class User(Base):
     bio = Column(String, nullable=True)
     profile_picture = Column(String, nullable=True) #Путь к изображению в духе "/static/avatars/user123"
     is_active = Column(Boolean, default=True)
+    favorite_recipes = relationship("FavoriteRecipe", back_populates="user")
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())

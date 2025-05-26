@@ -267,3 +267,4 @@ async def fetch_recipes(
     """
     recipes = db.query(Recipe).offset(skip).limit(limit).all()
     return recipes
+

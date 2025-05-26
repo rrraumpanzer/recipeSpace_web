@@ -6,11 +6,14 @@ import aiofiles
 import uuid
 from app.database.base_user import UserBase, UserCreate, UserUpdate, UserInDB
 from app.models.user import User
+from app.models.fave import FavoriteRecipe
+from app.models.recipe import Recipe
 from app.database.connection import get_db
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from psycopg2 import IntegrityError
 from datetime import datetime, timedelta
+
 
 from app.api.auth import (
     create_access_token,
@@ -278,3 +281,54 @@ async def login_for_access_token(
 @user_router.get("/me/", response_model=UserInDB)
 async def read_users_me(current_user: dict = Depends(get_current_active_user)):
     return current_user
+
+@user_router.post("/{user_id}/favorites/{recipe_id}", response_model=bool)
+async def add_to_favorites(
+    db: Session, 
+    user_id: int, 
+    recipe_id: int
+    ):
+    
+    existing = db.query(FavoriteRecipe).filter(
+        FavoriteRecipe.user_id == user_id,
+        FavoriteRecipe.recipe_id == recipe_id
+    ).first()
+    
+    if existing:
+        return False
+    
+    fav = FavoriteRecipe(user_id=user_id, recipe_id=recipe_id)
+    db.add(fav)
+    
+    recipe = db.query(Recipe).filter(Recipe.id == recipe_id).first()
+    if recipe:
+        recipe.likes_count = (recipe.likes_count or 0) + 1
+    
+    db.commit()
+    return True
+
+@user_router.delete("/{user_id}/favorites/{recipe_id}")
+async def remove_from_favorites(db: Session, user_id: int, recipe_id: int):
+    fav = db.query(FavoriteRecipe).filter(
+        FavoriteRecipe.user_id == user_id,
+        FavoriteRecipe.recipe_id == recipe_id
+    ).first()
+    
+    if not fav:
+        return False
+    
+    db.delete(fav)
+    
+    recipe = db.query(Recipe).filter(Recipe.id == recipe_id).first()
+    if recipe and recipe.likes_count > 0:
+        recipe.likes_count -= 1
+    
+    db.commit()
+    return True
+
+
+@user_router.get("/{user_id}/favorites")
+async def get_user_favorites(db: Session, user_id: int):
+    return db.query(Recipe).join(FavoriteRecipe).filter(
+        FavoriteRecipe.user_id == user_id
+    ).all()

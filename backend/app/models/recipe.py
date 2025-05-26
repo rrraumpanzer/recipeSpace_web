@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, ARRAY, SmallInteger
 from sqlalchemy.sql import func
+from sqlalchemy.orm import relationship
 from app.database.connection import Base
 class Recipe(Base):
     __tablename__ = 'recipes'
@@ -13,6 +14,7 @@ class Recipe(Base):
     difficulty = Column(SmallInteger, nullable=False)
     image = Column(String(255))
     steps = Column(Text)  #Использую markdown
+    favorited_by = relationship("FavoriteRecipe", back_populates="recipe")
 
     author_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
