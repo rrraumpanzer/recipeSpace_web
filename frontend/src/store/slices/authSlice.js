@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { userApi } from '../../api/userApi'; // предполагается, что у вас есть API slice
+import { userApi } from '../../api/userApi';
 
 const initialState = {
   isModalOpen: false,
@@ -10,7 +10,8 @@ const initialState = {
     username: ''
   },
   error: '',
-  token: localStorage.getItem('token') || null
+  token: localStorage.getItem('token') || null,
+  currentUser: null
 };
 
 const authSlice = createSlice({
@@ -45,8 +46,13 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.token = null;
+      state.currentUser;
       localStorage.removeItem('token');
-    }
+    },
+    setUser: (state, action) => {
+      state.currentUser = action.payload;
+    },
+    
   },
   // Обрабатываем результаты запросов RTK Query
   extraReducers: (builder) => {
@@ -88,6 +94,12 @@ const authSlice = createSlice({
       (state, { payload }) => {
           state.error = payload?.data?.message || 'Ошибка регистрации';
       }
+    )
+    .addMatcher(
+      userApi.endpoints.getMe.matchFulfilled,
+      (state, { payload }) => {
+        state.currentUser = payload;
+      }
     );
   }
 });
@@ -101,6 +113,7 @@ export const {
   setFormData,
   setError,
   setToken,
+  setUser,
   logout
 } = authSlice.actions;
 
@@ -110,3 +123,5 @@ export default authSlice.reducer;
 export const selectAuth = (state) => state.auth;
 export const selectIsModalOpen = (state) => state.auth.isModalOpen;
 export const selectIsLoggedIn = (state) => !!state.auth.token;
+export const selectCurrentUser = (state) => state.auth.currentUser;
+export const selectToken = (state) => state.auth.token;

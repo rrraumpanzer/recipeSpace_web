@@ -1,17 +1,26 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { openModal, logout, selectIsLoggedIn } from '../../store/slices/authSlice';
+import { Link } from 'react-router-dom';
+import { openModal, logout, selectIsLoggedIn, selectCurrentUser } from '../../store/slices/authSlice';
+import { useGetMeQuery } from '../../api/userApi';
 import AuthModal from '../auth/AuthModal';
 import './Header.css';
-
-
 
 function Header() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const currentUser = useSelector(selectCurrentUser);
+  
+  // Получаем данные текущего пользователя при монтировании
+  const { data: userData, refetch } = useGetMeQuery(undefined, {
+    skip: !isLoggedIn,
+  });
 
-  const authState = useSelector((state) => state.auth);
-  console.log('Auth state:', authState);
+  useEffect(() => {
+    if (isLoggedIn) {
+      refetch();
+    }
+  }, [isLoggedIn, refetch]);
 
   const handleAuthClick = () => {
     if (isLoggedIn) {
@@ -25,12 +34,22 @@ function Header() {
     <header className="header">
       <div className="header-content">
         <h1 className="site-title">recipeSpace</h1>
-        <button 
-          className="login-button"
-          onClick={handleAuthClick}
-        >
-          {isLoggedIn ? 'Выйти' : 'Войти'}
-        </button>
+        
+        <div className="user-section">
+          {isLoggedIn && currentUser && (
+            <Link to={`/user/${currentUser.id}`} className="username-link">
+              {currentUser.username}
+            </Link>
+          )}
+        </div>
+        <div className='auth-section'>
+          <button 
+            className="login-button"
+            onClick={handleAuthClick}
+          >
+            {isLoggedIn ? 'Выйти' : 'Войти'}
+          </button>
+        </div>
       </div>
       <AuthModal />
     </header>

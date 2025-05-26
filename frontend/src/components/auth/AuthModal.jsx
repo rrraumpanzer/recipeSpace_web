@@ -1,8 +1,10 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   useRegisterUserMutation,
-  useLoginUserMutation
+  useLoginUserMutation,
+  useGetMeQuery
 } from '../../api/userApi';
 import {
   closeModal,
@@ -10,7 +12,8 @@ import {
   setFormData,
   selectAuth,
   setError,
-  setToken
+  setToken,
+  setUser
 } from '../../store/slices/authSlice';
 import './AuthModal.css';
 
@@ -20,29 +23,48 @@ const AuthModal = ({ onLoginSuccess }) => {
     isModalOpen,
     isLoginForm,
     formData,
-    error
+    error,
+    token
   } = useSelector(selectAuth);
   
   const [registerUser, { isLoading: isRegistering }] = useRegisterUserMutation();
   const [loginUser, { isLoading: isLoggingIn }] = useLoginUserMutation();
+  
+  // запрос будет отправлен только при наличии токена
+  const { data: userData, refetch, isSuccess, isError } = useGetMeQuery(undefined, {
+    skip: !token
+  });
+
+  // Автоматически устанавливаем данные пользователя, когда приходит ответ на запрос /user/me
+  useEffect(() => {
+    if (isSuccess && userData) {
+      dispatch(setUser(userData));
+      // Если мы успешно получили данные пользователя и были в процессе логина, закрываем модальное окно
+      if (isModalOpen) {
+        dispatch(closeModal());
+        onLoginSuccess?.();
+      }
+    }
+  }, [isSuccess, userData, dispatch, isModalOpen, onLoginSuccess]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(setError('')); // Сбрасываем ошибку перед новым запросом
+    dispatch(setError(''));
     
     try {
       if (isLoginForm) {
         const { username, password } = formData;
         const response = await loginUser({ username, password }).unwrap();
-        dispatch(setToken(response.access_token)); // Используем access_token из ответа
-        onLoginSuccess?.();
+        
+        // Устанавливаем токен. Запрос /user/me будет выполнен автоматически 
+        // благодаря useEffect, который следит за изменением токена
+        dispatch(setToken(response.access_token));
       } else {
         await registerUser(formData).unwrap();
         // После регистрации автоматически логиним
-        const { email, password } = formData;
-        const response = await loginUser({ email, password }).unwrap();
-        dispatch(setToken(response.access_token)); // Используем access_token из ответа
-        onLoginSuccess?.();
+        const { username, password } = formData;
+        const response = await loginUser({ username, password }).unwrap();
+        dispatch(setToken(response.access_token));
       }
     } catch (err) {
       console.error('Auth error:', err);

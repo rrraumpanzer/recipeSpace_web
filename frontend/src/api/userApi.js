@@ -4,9 +4,8 @@ export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({ 
     baseUrl: 'http://localhost:8000/user',
-    prepareHeaders: (headers) => {
-      // Если есть токен, добавляем его в заголовки
-      const token = localStorage.getItem('token');
+    prepareHeaders: (headers, {getState}) => {
+      const token = getState().auth.token;
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
@@ -47,12 +46,12 @@ export const userApi = createApi({
   
   // Получение данных текущего пользователя
   getMe: builder.query({
-    query: () => '/me',
+    query: () => '/me/',
   }),
   
   // Получение данных пользователя по ID
   getUser: builder.query({
-    query: (userId) => `/get?id=${userId}`,
+    query: (userId) => `/${userId}`,
   }),
   
   // Обновление данных пользователя
