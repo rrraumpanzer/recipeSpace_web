@@ -1,115 +1,106 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useRegisterUserMutation, useLoginUserMutation } from '../../api/userApi';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  useRegisterUserMutation,
+  useLoginUserMutation
+} from '../../api/userApi';
+import {
+  closeModal,
+  toggleAuthMode,
+  setFormData,
+  selectAuth,
+  setError,
+  setToken
+} from '../../store/slices/authSlice';
 import './AuthModal.css';
 
-const AuthModal = ({ isOpen, onClose, onLoginSuccess }) => {
-  const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    username: ''
-  });
-  const [error, setError] = useState('');
+const AuthModal = ({ onLoginSuccess }) => {
+  const dispatch = useDispatch();
+  const {
+    isModalOpen,
+    isLoginForm,
+    formData,
+    error
+  } = useSelector(selectAuth);
   
   const [registerUser, { isLoading: isRegistering }] = useRegisterUserMutation();
   const [loginUser, { isLoading: isLoggingIn }] = useLoginUserMutation();
-  
-  const modalRef = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    dispatch(setError('')); // Сбрасываем ошибку перед новым запросом
     
     try {
-      if (isLogin) {
-        // Логин
+      if (isLoginForm) {
         const { username, password } = formData;
         const response = await loginUser({ username, password }).unwrap();
-        localStorage.setItem('token', response.token);
+        dispatch(setToken(response.access_token)); // Используем access_token из ответа
         onLoginSuccess?.();
-        onClose();
       } else {
-        // Регистрация
         await registerUser(formData).unwrap();
-        // После успешной регистрации автоматически логиним пользователя
+        // После регистрации автоматически логиним
         const { email, password } = formData;
         const response = await loginUser({ email, password }).unwrap();
-        localStorage.setItem('token', response.token);
+        dispatch(setToken(response.access_token)); // Используем access_token из ответа
         onLoginSuccess?.();
-        onClose();
       }
     } catch (err) {
-      setError(err.data?.message || 'Произошла ошибка. Пожалуйста, попробуйте снова.');
       console.error('Auth error:', err);
+      dispatch(setError(err.data?.message || 'Произошла ошибка'));
     }
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    dispatch(setFormData({
+      name: e.target.name,
+      value: e.target.value
+    }));
   };
 
-  const handleClickOutside = (event) => {
-    if (modalRef.current && !modalRef.current.contains(event.target)) {
-      onClose();
-    }
-  };
-  
-  useEffect(() => {
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      // Сброс формы при открытии
-      setFormData({
-        email: '',
-        password: '',
-        username: ''
-      });
-      setError('');
-    }
-    
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen]);
-  
-  if (!isOpen) return null;
+  if (!isModalOpen) return null;
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content" ref={modalRef}>
+      <div className="modal-content">
         <h2>
-          {isLogin ? 'Вход' : 'Регистрация'}
-          <button className="modal-close" onClick={onClose}>×</button>
+          {isLoginForm ? 'Вход' : 'Регистрация'}
+          <button 
+            className="modal-close" 
+            onClick={() => dispatch(closeModal())}
+            disabled={isRegistering || isLoggingIn}
+          >
+            ×
+          </button>
         </h2>
         
         {error && <div className="error-message">{error}</div>}
         
         <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>Имя пользователя:</label>
-              <input
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                required
-                minLength={3}
-              />
-            </div>
-          
-          {!isLogin && (
           <div className="form-group">
-            <label>Email:</label>
+            <label>Имя пользователя:</label>
             <input
-              type="email"
-              name="email"
-              value={formData.email}
+              type="text"
+              name="username"
+              value={formData.username}
               onChange={handleChange}
               required
+              minLength={3}
+              disabled={isRegistering || isLoggingIn}
             />
           </div>
+          
+          {!isLoginForm && (
+            <div className="form-group">
+              <label>Email:</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                disabled={isRegistering || isLoggingIn}
+              />
+            </div>
           )}
 
           <div className="form-group">
@@ -121,6 +112,7 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess }) => {
               onChange={handleChange}
               required
               minLength={6}
+              disabled={isRegistering || isLoggingIn}
             />
           </div>
 
@@ -129,23 +121,20 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess }) => {
             className="submit-button"
             disabled={isRegistering || isLoggingIn}
           >
-            {isLogin 
+            {isLoginForm 
               ? (isLoggingIn ? 'Вход...' : 'Войти')
               : (isRegistering ? 'Регистрация...' : 'Зарегистрироваться')}
           </button>
         </form>
 
         <p className="switch-mode">
-          {isLogin ? 'Нет аккаунта? ' : 'Уже есть аккаунт? '}
+          {isLoginForm ? 'Нет аккаунта? ' : 'Уже есть аккаунт? '}
           <button
             className="switch-button"
-            onClick={() => {
-              setIsLogin(!isLogin);
-              setError('');
-            }}
+            onClick={() => dispatch(toggleAuthMode())}
             disabled={isRegistering || isLoggingIn}
           >
-            {isLogin ? 'Зарегистрироваться' : 'Войти'}
+            {isLoginForm ? 'Зарегистрироваться' : 'Войти'}
           </button>
         </p>
       </div>

@@ -1,10 +1,25 @@
-// components/header/index.jsx
-import { useState, useRef, useEffect } from 'react';
-import AuthModal from '../auth/AuthModal.jsx';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { openModal, logout, selectIsLoggedIn } from '../../store/slices/authSlice';
+import AuthModal from '../auth/AuthModal';
 import './Header.css';
 
+
+
 function Header() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  const authState = useSelector((state) => state.auth);
+  console.log('Auth state:', authState);
+
+  const handleAuthClick = () => {
+    if (isLoggedIn) {
+      dispatch(logout());
+    } else {
+      dispatch(openModal());
+    }
+  };
 
   return (
     <header className="header">
@@ -12,15 +27,12 @@ function Header() {
         <h1 className="site-title">recipeSpace</h1>
         <button 
           className="login-button"
-          onClick={() => setIsModalOpen(true)}
+          onClick={handleAuthClick}
         >
-          Войти
+          {isLoggedIn ? 'Выйти' : 'Войти'}
         </button>
       </div>
-      <AuthModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)}
-      />
+      <AuthModal />
     </header>
   );
 }
