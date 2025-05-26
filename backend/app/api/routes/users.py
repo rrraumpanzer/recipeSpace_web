@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
+from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Form
 from fastapi.staticfiles import StaticFiles
 AVATARS_DIR = "static/avatars"
 import os
@@ -27,20 +27,22 @@ user_router = APIRouter(
 
 @user_router.post("/signup", response_model=UserInDB, status_code=status.HTTP_201_CREATED)
 async def sign_user_up(
-    user: UserCreate, 
+    user: UserCreate = Depends(UserCreate.as_form), 
     db: Session = Depends(get_db)
 ):
     """
     Регистрирует нового пользователя.
 
     Аргументы:
-        user: Модель UserCreate - username, email, password
+        username: str (min 3, max 50 chars)
+        email: str
+        password: str (min 8 chars)
         db: Сессия
     
     Возвращает:
         Данные созданного пользователя.
     """
-    print("\033[33m DEBUG: \033[0m" + f'Начало создания нового пользователя: {user.username}')
+    print("\033[33m DEBUG: \033[0m" + f'Получены данные: {user}')
     print("\033[33m DEBUG: \033[0m" + f'Проверка существование пользователя {user.username} и почты {user.email}')
     existing_user = db.query(User).filter(
         (User.email == user.email) | (User.username == user.username)
