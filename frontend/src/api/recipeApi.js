@@ -5,7 +5,6 @@ export const recipeApi = createApi({
   baseQuery: fetchBaseQuery({ 
     baseUrl: 'http://localhost:8000/recipe',
     prepareHeaders: (headers) => {
-      // Если есть токен, добавляем его в заголовки
       const token = localStorage.getItem('token');
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);

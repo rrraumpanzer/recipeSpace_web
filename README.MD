@@ -58,4 +58,4 @@ http POST http://localhost:8000/recipe/create title="Рыба под шокол�
 http --form POST http://localhost:8000/user/upload-avatar/1   "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjo
 xNzQ4MDk4NDQ5fQ.GKb5DYTYn_42NI-H-RKn5zX823d8cjtWp6bbnu_tvps"   file@./temp/catto.png
 
-http --form POST http://localhost:8000/recipe/upload-image/1  "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MTAxNDM5fQ.rabwnvX_0Tt4x5DpzFwNvfWtobZdbYyKBuut7mI8Hck" file@./temp/fisheauchokolat.png
+http --form POST http://localhost:8000/recipe/upload-image/1  "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MjkwMjkxfQ.kNes0b9ovDzbvQjtXn_FZ-fQ9JbcxsRZiqMSgjM1XBE" file@./temp/fisheauchokolat.png

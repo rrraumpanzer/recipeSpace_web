@@ -1,200 +1,87 @@
-2025-05-26 18:16:32,380 - app.main - INFO - Запрос: POST http://localhost:8000/user/signup
-2025-05-26 18:16:32,384 - app.main - INFO - Ответ: 422
-2025-05-26 18:16:58,058 - app.main - INFO - Запрос: POST http://localhost:8000/user/signup
-2025-05-26 18:16:58,061 - app.main - INFO - Ответ: 422
-2025-05-26 18:18:49,994 - app.main - INFO - Запрос: POST http://localhost:8000/user/signup <starlette.middleware.base._CachedRequest object at 0x7fd2c6cd1d20>
-2025-05-26 18:18:49,997 - app.main - INFO - Ответ: 422 <starlette.middleware.base._StreamingResponse object at 0x7fd2c6d12770>
-2025-05-26 18:23:15,554 - app.main - INFO - Request: method=POST url=http://localhost:8000/user/signup headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '69', 'sec-ch-ua-platform': '"Windows"', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'content-type': 'text/plain;charset=UTF-8', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'no-cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body={"email":"aeiou@mail.cn","password":"adasdasdasd","username":"venti"}
-2025-05-26 18:23:15,559 - app.main - INFO - Response: status_code=422 headers={'content-length': '228', 'content-type': 'application/json'} body={"detail":[{"type":"model_attributes_type","loc":["body"],"msg":"Input should be a valid dictionary or object to extract fields from","input":"{\"email\":\"aeiou@mail.cn\",\"password\":\"adasdasdasd\",\"username\":\"usernaem\"}"}]} 
-2025-05-26 18:32:57,629 - app.main - INFO - Request: method=POST url=http://localhost:8000/user/signup headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '69', 'sec-ch-ua-platform': '"Windows"', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'content-type': 'text/plain;charset=UTF-8', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'no-cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body={"email":"aeiou@mail.cn","password":"adasdasdasd","username":"venti"}
-2025-05-26 18:32:57,634 - app.main - INFO - Response: status_code=422 headers={'content-length': '228', 'content-type': 'application/json'} body={"detail":[{"type":"model_attributes_type","loc":["body"],"msg":"Input should be a valid dictionary or object to extract fields from","input":"{\"email\":\"aeiou@mail.cn\",\"password\":\"adasdasdasd\",\"username\":\"venti\"}"}]} 
-2025-05-26 18:34:33,038 - app.main - INFO - Request: method=POST url=http://localhost:8000/user/signup headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '72', 'sec-ch-ua-platform': '"Windows"', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'content-type': 'text/plain;charset=UTF-8', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'no-cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body={"email":"email@email.com","password":"123123123","username":"usernaem"}
-2025-05-26 18:34:33,040 - app.main - INFO - Response: status_code=422 headers={'content-length': '231', 'content-type': 'application/json'} body={"detail":[{"type":"model_attributes_type","loc":["body"],"msg":"Input should be a valid dictionary or object to extract fields from","input":"{\"email\":\"email@email.com\",\"password\":\"123123123\",\"username\":\"usernaem\"}"}]} 
-2025-05-26 18:35:55,748 - app.main - INFO - Request: method=POST url=http://localhost:8000/user/signup headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '72', 'sec-ch-ua-platform': '"Windows"', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'content-type': 'text/plain;charset=UTF-8', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'no-cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body={"email":"email@email.com","password":"123123123","username":"usernaem"}
-2025-05-26 18:35:55,750 - app.main - INFO - Response: status_code=422 headers={'content-length': '231', 'content-type': 'application/json'} body={"detail":[{"type":"model_attributes_type","loc":["body"],"msg":"Input should be a valid dictionary or object to extract fields from","input":"{\"email\":\"email@email.com\",\"password\":\"123123123\",\"username\":\"usernaem\"}"}]} 
-2025-05-26 18:38:13,922 - app.main - INFO - Request: method=POST url=http://localhost:8000/user/signup headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '70', 'sec-ch-ua-platform': '"Windows"', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'content-type': 'text/plain;charset=UTF-8', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'no-cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body={"email":"fasfas@fasfa.com","password":"1232312","username":"vkpkreg"}
-2025-05-26 18:38:13,925 - app.main - INFO - Response: status_code=422 headers={'content-length': '229', 'content-type': 'application/json'} body={"detail":[{"type":"model_attributes_type","loc":["body"],"msg":"Input should be a valid dictionary or object to extract fields from","input":"{\"email\":\"fasfas@fasfa.com\",\"password\":\"1232312\",\"username\":\"vkpkreg\"}"}]} 
-2025-05-26 19:01:25,868 - app.main - INFO - Request: method=POST url=http://localhost:8000/user/signup headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '70', 'sec-ch-ua-platform': '"Windows"', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'content-type': 'text/plain;charset=UTF-8', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'no-cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body={"email":"mail@mail.ru","password":"1212121212","username":"usernaem"}
-2025-05-26 19:01:25,871 - app.main - INFO - Response: status_code=422 headers={'content-length': '252', 'content-type': 'application/json'} body={"detail":[{"type":"missing","loc":["body","username"],"msg":"Field required","input":null},{"type":"missing","loc":["body","email"],"msg":"Field required","input":null},{"type":"missing","loc":["body","password"],"msg":"Field required","input":null}]} 
-2025-05-26 19:04:52,507 - app.main - INFO - Request: method=POST url=http://localhost:8000/user/signup headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '359', 'sec-ch-ua-platform': '"Windows"', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary8yjUs5qtzVv7Z4cb', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=------WebKitFormBoundary8yjUs5qtzVv7Z4cb
-Content-Disposition: form-data; name="username"
-
-rerererer
-------WebKitFormBoundary8yjUs5qtzVv7Z4cb
-Content-Disposition: form-data; name="email"
-
-email@email.com
-------WebKitFormBoundary8yjUs5qtzVv7Z4cb
-Content-Disposition: form-data; name="password"
-
-121121212
-------WebKitFormBoundary8yjUs5qtzVv7Z4cb--
-
-2025-05-26 19:04:52,508 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
-2025-05-26 19:04:52,508 - python_multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
-2025-05-26 19:04:52,508 - python_multipart.multipart - DEBUG - Calling on_header_value with data[63:89]
-2025-05-26 19:04:52,508 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
-2025-05-26 19:04:52,508 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
-2025-05-26 19:04:52,509 - python_multipart.multipart - DEBUG - Calling on_part_data with data[93:102]
-2025-05-26 19:04:52,509 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
-2025-05-26 19:04:52,509 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
-2025-05-26 19:04:52,509 - python_multipart.multipart - DEBUG - Calling on_header_field with data[146:165]
-2025-05-26 19:04:52,509 - python_multipart.multipart - DEBUG - Calling on_header_value with data[167:190]
-2025-05-26 19:04:52,509 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
-2025-05-26 19:04:52,509 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
-2025-05-26 19:04:52,509 - python_multipart.multipart - DEBUG - Calling on_part_data with data[194:209]
-2025-05-26 19:04:52,509 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
-2025-05-26 19:04:52,510 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
-2025-05-26 19:04:52,510 - python_multipart.multipart - DEBUG - Calling on_header_field with data[253:272]
-2025-05-26 19:04:52,510 - python_multipart.multipart - DEBUG - Calling on_header_value with data[274:300]
-2025-05-26 19:04:52,510 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
-2025-05-26 19:04:52,510 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
-2025-05-26 19:04:52,510 - python_multipart.multipart - DEBUG - Calling on_part_data with data[304:313]
-2025-05-26 19:04:52,510 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
-2025-05-26 19:04:52,511 - python_multipart.multipart - DEBUG - Calling on_end with no data
-2025-05-26 19:04:52,614 - passlib.handlers.bcrypt - DEBUG - trapped unexpected response from 'os_crypt' backend: verify('test', b'$2$04$5BJqKfqMQvV7nS.yUguNcuRfMMOXK0xPWavM7pOzjEi5ze5T1k8/S'):
-Traceback (most recent call last):
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 303, in safe_verify
-    return verify(secret, hash)
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/passlib/utils/handlers.py", line 792, in verify
-    return consteq(self._calc_checksum(secret), chk)
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 837, in _calc_checksum
-    raise uh.exc.InternalBackendError(
-passlib.exc.InternalBackendError: crypt.crypt() failed for unknown reason; passlib recommends running `pip install bcrypt` for general bcrypt support.(config=<hash <class 'str'> value omitted>, secret=<hash <class 'bytes'> value omitted>)
-2025-05-26 19:04:52,617 - passlib.handlers.bcrypt - DEBUG - 'os_crypt' backend lacks $2$ support, enabling workaround
-2025-05-26 19:04:52,825 - app.main - INFO - Response: status_code=201 headers={'content-length': '174', 'content-type': 'application/json'} body={"username":"rerererer","email":"email@email.com","id":2,"bio":null,"profile_picture":null,"is_active":true,"created_at":"2025-05-26T19:04:52.606021+03:00","updated_at":null} 
-2025-05-26 19:15:52,030 - app.main - INFO - Request: method=POST url=http://localhost:8000/user/token headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '255', 'sec-ch-ua-platform': '"Windows"', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'content-type': 'multipart/form-data; boundary=----WebKitFormBoundaryaYITFW4RJlw1EoFq', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=------WebKitFormBoundaryaYITFW4RJlw1EoFq
-Content-Disposition: form-data; name="username"
-
-Ivan
-------WebKitFormBoundaryaYITFW4RJlw1EoFq
-Content-Disposition: form-data; name="password"
-
-strongpassword123
-------WebKitFormBoundaryaYITFW4RJlw1EoFq--
-
-2025-05-26 19:15:52,031 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
-2025-05-26 19:15:52,032 - python_multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
-2025-05-26 19:15:52,032 - python_multipart.multipart - DEBUG - Calling on_header_value with data[63:89]
-2025-05-26 19:15:52,032 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
-2025-05-26 19:15:52,032 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
-2025-05-26 19:15:52,032 - python_multipart.multipart - DEBUG - Calling on_part_data with data[93:97]
-2025-05-26 19:15:52,032 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
-2025-05-26 19:15:52,032 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
-2025-05-26 19:15:52,033 - python_multipart.multipart - DEBUG - Calling on_header_field with data[141:160]
-2025-05-26 19:15:52,033 - python_multipart.multipart - DEBUG - Calling on_header_value with data[162:188]
-2025-05-26 19:15:52,033 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
-2025-05-26 19:15:52,033 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
-2025-05-26 19:15:52,033 - python_multipart.multipart - DEBUG - Calling on_part_data with data[192:209]
-2025-05-26 19:15:52,033 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
-2025-05-26 19:15:52,033 - python_multipart.multipart - DEBUG - Calling on_end with no data
-2025-05-26 19:15:52,035 - app.main - ERROR - Error processing request: 'OAuth2PasswordRequestForm' object has no attribute 'email'
-Traceback (most recent call last):
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/middleware/base.py", line 148, in call_next
-    message = await recv_stream.receive()
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/anyio/streams/memory.py", line 126, in receive
-    raise EndOfStream from None
-anyio.EndOfStream
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/user/recipeSpace_web/backend/app/main.py", line 33, in log_request_response
-    response = await call_next(request)
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/middleware/base.py", line 156, in call_next
-    raise app_exc
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/middleware/base.py", line 141, in coro
-    await self.app(scope, receive_or_disconnect, send_no_error)
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    raise exc
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
-    await app(scope, receive, sender)
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/routing.py", line 714, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/routing.py", line 734, in app
-    await route.handle(scope, receive, send)
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/routing.py", line 288, in handle
-    await self.app(scope, receive, send)
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/routing.py", line 76, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    raise exc
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
-    await app(scope, receive, sender)
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/routing.py", line 73, in app
-    response = await f(request)
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/fastapi/routing.py", line 301, in app
-    raw_response = await run_endpoint_function(
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
-    return await dependant.call(**values)
-  File "/home/user/recipeSpace_web/backend/app/api/routes/users.py", line 253, in login_for_access_token
-    user = db.query(User).filter(User.username == form_data.email).first()
-AttributeError: 'OAuth2PasswordRequestForm' object has no attribute 'email'
-2025-05-26 19:20:38,223 - app.main - INFO - Request: method=POST url=http://localhost:8000/user/token headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '255', 'sec-ch-ua-platform': '"Windows"', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'content-type': 'multipart/form-data; boundary=----WebKitFormBoundaryWk57UfW79AconHnY', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=------WebKitFormBoundaryWk57UfW79AconHnY
-Content-Disposition: form-data; name="username"
-
-Ivan
-------WebKitFormBoundaryWk57UfW79AconHnY
-Content-Disposition: form-data; name="password"
-
-strongpassword123
-------WebKitFormBoundaryWk57UfW79AconHnY--
-
-2025-05-26 19:20:38,224 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
-2025-05-26 19:20:38,224 - python_multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
-2025-05-26 19:20:38,224 - python_multipart.multipart - DEBUG - Calling on_header_value with data[63:89]
-2025-05-26 19:20:38,224 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
-2025-05-26 19:20:38,224 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
-2025-05-26 19:20:38,224 - python_multipart.multipart - DEBUG - Calling on_part_data with data[93:97]
-2025-05-26 19:20:38,224 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
-2025-05-26 19:20:38,224 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
-2025-05-26 19:20:38,225 - python_multipart.multipart - DEBUG - Calling on_header_field with data[141:160]
-2025-05-26 19:20:38,225 - python_multipart.multipart - DEBUG - Calling on_header_value with data[162:188]
-2025-05-26 19:20:38,225 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
-2025-05-26 19:20:38,225 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
-2025-05-26 19:20:38,225 - python_multipart.multipart - DEBUG - Calling on_part_data with data[192:209]
-2025-05-26 19:20:38,225 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
-2025-05-26 19:20:38,225 - python_multipart.multipart - DEBUG - Calling on_end with no data
-2025-05-26 19:20:38,250 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+2025-05-26 22:39:53,537 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-26 22:39:53,537 - python_multipart.multipart - DEBUG - Calling on_header_field with data[36:55]
+2025-05-26 22:39:53,537 - python_multipart.multipart - DEBUG - Calling on_header_value with data[57:111]
+2025-05-26 22:39:53,537 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-26 22:39:53,537 - python_multipart.multipart - DEBUG - Calling on_header_field with data[113:125]
+2025-05-26 22:39:53,537 - python_multipart.multipart - DEBUG - Calling on_header_value with data[127:136]
+2025-05-26 22:39:53,538 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-26 22:39:53,538 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-26 22:39:53,538 - python_multipart.multipart - DEBUG - Calling on_part_data with data[140:81920]
+2025-05-26 22:39:53,538 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:39:53,539 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:39:53,540 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:39:53,544 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:39:53,546 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:39:53,550 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:186518]
+2025-05-26 22:39:53,550 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-26 22:39:53,551 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-05-26 22:40:26,374 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-26 22:40:26,374 - python_multipart.multipart - DEBUG - Calling on_header_field with data[36:55]
+2025-05-26 22:40:26,374 - python_multipart.multipart - DEBUG - Calling on_header_value with data[57:111]
+2025-05-26 22:40:26,375 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-26 22:40:26,375 - python_multipart.multipart - DEBUG - Calling on_header_field with data[113:125]
+2025-05-26 22:40:26,375 - python_multipart.multipart - DEBUG - Calling on_header_value with data[127:136]
+2025-05-26 22:40:26,375 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-26 22:40:26,375 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-26 22:40:26,375 - python_multipart.multipart - DEBUG - Calling on_part_data with data[140:32768]
+2025-05-26 22:40:26,375 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:81920]
+2025-05-26 22:40:26,376 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:40:26,376 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:40:26,377 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:40:26,377 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:40:26,378 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:40:26,379 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:153750]
+2025-05-26 22:40:26,379 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-26 22:40:26,379 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-05-26 22:41:24,486 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-26 22:41:24,486 - python_multipart.multipart - DEBUG - Calling on_header_field with data[36:55]
+2025-05-26 22:41:24,486 - python_multipart.multipart - DEBUG - Calling on_header_value with data[57:111]
+2025-05-26 22:41:24,486 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-26 22:41:24,486 - python_multipart.multipart - DEBUG - Calling on_header_field with data[113:125]
+2025-05-26 22:41:24,486 - python_multipart.multipart - DEBUG - Calling on_header_value with data[127:136]
+2025-05-26 22:41:24,486 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-26 22:41:24,486 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-26 22:41:24,486 - python_multipart.multipart - DEBUG - Calling on_part_data with data[140:32768]
+2025-05-26 22:41:24,487 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:81920]
+2025-05-26 22:41:24,487 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:41:24,487 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:41:24,487 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:41:24,488 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:41:24,489 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:41:24,489 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:153750]
+2025-05-26 22:41:24,489 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-26 22:41:24,489 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-05-26 22:41:31,519 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2025-05-26 22:41:31,520 - python_multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2025-05-26 22:41:31,520 - python_multipart.multipart - DEBUG - Calling on_field_data with data[9:13]
+2025-05-26 22:41:31,520 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2025-05-26 22:41:31,520 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2025-05-26 22:41:31,520 - python_multipart.multipart - DEBUG - Calling on_field_name with data[14:22]
+2025-05-26 22:41:31,520 - python_multipart.multipart - DEBUG - Calling on_field_data with data[23:40]
+2025-05-26 22:41:31,520 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2025-05-26 22:41:31,520 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-05-26 22:41:31,542 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
 Traceback (most recent call last):
   File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
     version = _bcrypt.__about__.__version__
 AttributeError: module 'bcrypt' has no attribute '__about__'
-2025-05-26 19:20:38,250 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '<unknown>'
-2025-05-26 19:20:38,250 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
-2025-05-26 19:20:38,482 - app.main - INFO - Response: status_code=200 headers={'content-length': '164', 'content-type': 'application/json'} body={"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4Mjc4MjM4fQ.DTKZYwbJyL5kMpSpoFEyZfyF3QqUpkhuqQvLceSBR-A","token_type":"bearer"} 
-2025-05-26 19:27:27,681 - app.main - INFO - Request: method=POST url=http://localhost:8000/user/token headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '255', 'sec-ch-ua-platform': '"Windows"', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'content-type': 'multipart/form-data; boundary=----WebKitFormBoundarykDRJavqmzSLMVsAz', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=------WebKitFormBoundarykDRJavqmzSLMVsAz
-Content-Disposition: form-data; name="username"
-
-Ivan
-------WebKitFormBoundarykDRJavqmzSLMVsAz
-Content-Disposition: form-data; name="password"
-
-strongpassword123
-------WebKitFormBoundarykDRJavqmzSLMVsAz--
-
-2025-05-26 19:27:27,682 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
-2025-05-26 19:27:27,682 - python_multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
-2025-05-26 19:27:27,682 - python_multipart.multipart - DEBUG - Calling on_header_value with data[63:89]
-2025-05-26 19:27:27,682 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
-2025-05-26 19:27:27,682 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
-2025-05-26 19:27:27,682 - python_multipart.multipart - DEBUG - Calling on_part_data with data[93:97]
-2025-05-26 19:27:27,683 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
-2025-05-26 19:27:27,683 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
-2025-05-26 19:27:27,683 - python_multipart.multipart - DEBUG - Calling on_header_field with data[141:160]
-2025-05-26 19:27:27,683 - python_multipart.multipart - DEBUG - Calling on_header_value with data[162:188]
-2025-05-26 19:27:27,683 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
-2025-05-26 19:27:27,683 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
-2025-05-26 19:27:27,683 - python_multipart.multipart - DEBUG - Calling on_part_data with data[192:209]
-2025-05-26 19:27:27,683 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
-2025-05-26 19:27:27,683 - python_multipart.multipart - DEBUG - Calling on_end with no data
-2025-05-26 19:27:27,704 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
-Traceback (most recent call last):
-  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
-    version = _bcrypt.__about__.__version__
-AttributeError: module 'bcrypt' has no attribute '__about__'
-2025-05-26 19:27:27,705 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '<unknown>'
-2025-05-26 19:27:27,705 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
-2025-05-26 19:27:27,946 - app.main - INFO - Response: status_code=200 headers={'content-length': '164', 'content-type': 'application/json', 'access-control-allow-origin': '*', 'access-control-allow-credentials': 'true'} body={"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4Mjc4NjQ3fQ.ZYAEgnBwodStq_yXfgWXAeqZpMYdxBJUgQCHLV4iqKg","token_type":"bearer"} 
+2025-05-26 22:41:31,543 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '<unknown>'
+2025-05-26 22:41:31,543 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
+2025-05-26 22:41:54,233 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-26 22:41:54,233 - python_multipart.multipart - DEBUG - Calling on_header_field with data[36:55]
+2025-05-26 22:41:54,233 - python_multipart.multipart - DEBUG - Calling on_header_value with data[57:111]
+2025-05-26 22:41:54,233 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-26 22:41:54,233 - python_multipart.multipart - DEBUG - Calling on_header_field with data[113:125]
+2025-05-26 22:41:54,234 - python_multipart.multipart - DEBUG - Calling on_header_value with data[127:136]
+2025-05-26 22:41:54,234 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-26 22:41:54,234 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-26 22:41:54,234 - python_multipart.multipart - DEBUG - Calling on_part_data with data[140:32768]
+2025-05-26 22:41:54,234 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:81920]
+2025-05-26 22:41:54,235 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:41:54,235 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:41:54,236 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:41:54,236 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:41:54,237 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:256000]
+2025-05-26 22:41:54,237 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:153750]
+2025-05-26 22:41:54,238 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-26 22:41:54,238 - python_multipart.multipart - DEBUG - Calling on_end with no data

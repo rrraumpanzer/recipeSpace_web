@@ -192,7 +192,7 @@ async def upload_image(
             if os.path.exists(old_path):
                 os.unlink(old_path)
         print("\033[33m DEBUG: \033[0m" + f'Запись пути к новой обложке в БД.')
-        image_path = f"/static/avatars/{new_filename}"
+        image_path = f"/static/images/{new_filename}"
         recipe.image = image_path
         db.commit()
         

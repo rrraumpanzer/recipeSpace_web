@@ -1,21 +1,74 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-//import { fetchRecipes } from '../../store/slices/recipesSlice';
-//import FilterPanel from '../../components/FilterPanel';
-//import RecipeGrid from '../../components/RecipeGrid';
-import './Home.css'
-
-//const dispatch = useDispatch();
-//const { loading, error } = useSelector((state) => state.recipes);
-
-//useEffect(() => {
-//  dispatch(fetchRecipes());
-//}, [dispatch]);
-
-//if (loading) return <div>Loading...</div>;
-//if (error) return <div>Error: {error}</div>;
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { useGetRecipesQuery } from '../../api/recipeApi';
+import './Home.css';
 
 function Home() {
+  const [skip, setSkip] = useState(0);
+  const limit = 10; // Количество рецептов за один запрос
+  const [recipes, setRecipes] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const loaderRef = useRef(null);
+  
+  // Получаем данные с помощью RTK Query
+  const { data, isLoading, isFetching } = useGetRecipesQuery({ skip, limit });
+  
+  // Объединяем новые рецепты с уже загруженными
+  useEffect(() => {
+    if (data) {
+      setRecipes(prev => [...prev, ...data]);
+      // Если пришло меньше рецептов, чем запрошено, значит это конец
+      if (data.length < limit) {
+        setHasMore(false);
+      }
+    }
+  }, [data, limit]);
+  
+  // Наблюдатель для бесконечного скролла
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore && !isFetching) {
+          setSkip(prev => prev + limit);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+    
+    return () => {
+      if (loaderRef.current) {
+        observer.unobserve(loaderRef.current);
+      }
+    };
+  }, [hasMore, isFetching, limit]);
+  
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return '/src/assets/recipeSpaceIco.svg';
+      
+    // Если путь уже абсолютный (начинается с http), возвращаем как есть
+    if (imagePath.startsWith('http')) return imagePath;
+      
+    // Формируем URL к изображению на бекенде
+    return `http://localhost:8000${imagePath}`;
+  };
+  // Функция для отображения сложности рецепта
+  const renderDifficulty = (difficulty) => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      stars.push(
+        <img 
+          key={i} 
+          src={i < difficulty ? '../src/assets/star_full1.svg' : '../src/assets/star_full.svg'} 
+          alt={i < difficulty ? 'filled star' : 'empty star'}
+        />
+      );
+    }
+    return <div className="recipe-difficulty">{stars}</div>;
+  };
+
   return (
     <div className="home">
       <div className="sidebar">
@@ -49,25 +102,37 @@ function Home() {
       </div>
       <div className="main-content">
         <div className="recipe-grid">
-          {/* Временные карточки рецептов */}
-          {[1, 2, 3, 4, 5, 6].map((item) => (
-            <div key={item} className="recipe-card">
-              <div className="recipe-image">
-                <img src={`src/assets/vite.svg`} alt="Dish image" />
+          {recipes.map((recipe) => (
+            <div key={recipe.id} className="recipe-card">
+            <div className="recipe-image">
+              <img 
+                src={getImageUrl(recipe.image)} 
+                alt={recipe.title} 
+                onError={(e) => {
+                  e.target.src = '/src/assets/recipeSpaceIco.svg';
+                }}
+              />
               </div>
-              <div className="recipe-difficulty">
-              <img src={`../src/assets/star_full1.svg`}/><img src={`../src/assets/star_full1.svg`}/>
-              </div>
+              {renderDifficulty(recipe.difficulty)}
               <div className="recipe-info">
-                <h3>Рецепт {item}</h3>
-                <p>Время приготовления: 30 мин</p>
+                <h3>{recipe.title}</h3>
+                <p>Время приготовления: {recipe.cooking_time_minutes} мин</p>
               </div>
             </div>
           ))}
         </div>
+        
+        {/* Индикатор загрузки */}
+        {(isLoading || isFetching) && <div>Загрузка...</div>}
+        
+        {/* Элемент для наблюдения за пересечением */}
+        <div ref={loaderRef} style={{ height: '20px' }} />
+        
+        {/* Сообщение, если больше нет рецептов */}
+        {!hasMore && <div>Вы достигли конца списка</div>}
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
