@@ -390,3 +390,16 @@ async def get_favorites(
     ).offset(skip).limit(limit).all()
     
     return [fav.recipe for fav in favorites]
+
+@user_router.get("/{user_id}/recipes", response_model=list[RecipeInDB])
+async def get_created(
+    user_id: int,
+    db: Session = Depends(get_db),
+    skip: int = 0,
+    limit: int = 100
+):
+    created = db.query(Recipe).filter(
+        Recipe.author_id == user_id
+    ).offset(skip).limit(limit).all()
+    
+    return [item for item in created]

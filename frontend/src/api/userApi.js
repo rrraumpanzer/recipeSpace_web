@@ -88,7 +88,34 @@ export const userApi = createApi({
       method: 'DELETE',
       }),
     }),
-  }),
+  
+
+  addToUserFavorites: builder.mutation({
+    query: ({userId, recipeId}) => ({
+      url: `/${userId}/favorites/${recipeId}`,
+      method: 'POST',
+      }),
+    }),
+  
+
+  deleteFromUserFavorites: builder.mutation({
+    query: ({userId, recipeId}) => ({
+      url: `/${userId}/favorites/${recipeId}`,
+      method: 'DELETE',
+      }),
+    }),
+  
+  getFavoriteRecipes: builder.query({
+      query: ({userId, skip = 0, limit = 10 }) => `/${userId}/favorites?skip=${skip}&limit=${limit}`,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Recipe', id })),
+              { type: 'Recipe', id: 'LIST' },
+            ]
+          : [{ type: 'Recipe', id: 'LIST' }],
+    }),
+  })
 });
 
 export const {
@@ -99,5 +126,7 @@ export const {
   useUpdateUserMutation,
   useUploadAvatarMutation,
   useDeleteUserMutation,
+  useDeleteFromUserFavoritesMutation,
+  useAddToUserFavoritesMutation,
 } = userApi;
 
