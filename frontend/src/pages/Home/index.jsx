@@ -129,7 +129,12 @@ function Home() {
                 }}
               />
               </div>
+              <div className='ico-row'>
               {renderDifficulty(recipe.difficulty)}
+              <img
+                src='/src/assets/heart.svg'>
+              </img>
+              </div>
               <div className="recipe-info">
                 <h3>{recipe.title}</h3>
                 <p>Время приготовления: {recipe.cooking_time_minutes} мин</p>

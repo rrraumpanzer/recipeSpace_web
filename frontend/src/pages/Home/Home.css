@@ -77,7 +77,11 @@
     padding-top: 5px;
     padding-left: 15px;
   }
-  
+
+  .ico-row {
+    flex-direction: row;
+  }
+
   .recipe-info h3 {
     margin: 0 0 0 0;
     font-size: 1.1rem;
