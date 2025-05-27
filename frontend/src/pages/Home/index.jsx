@@ -140,17 +140,21 @@ function Home() {
                 }}
               />
               </div>
-              <div className='ico-row'>
-              {renderDifficulty(recipe.difficulty)}
-              <img
-                src='/src/assets/heart.svg'>
-              </img>
+                <div className='recipe-header'>
+                  {renderDifficulty(recipe.difficulty)}
+                  <div className='like-button'>
+                      <img src='/src/assets/heart.svg'></img>
+                    <span>{recipe.likes_count || 0}</span>
+                  </div>
+                </div>
+                <div className='recipe-title'>
+                  <h3>{recipe.title}</h3>
+                </div>
+                <div className="recipe-info">
+                  <p>{recipe.description}</p>
+                  <p>Время приготовления: {recipe.cooking_time_minutes} мин</p>
+                </div>
               </div>
-              <div className="recipe-info">
-                <h3>{recipe.title}</h3>
-                <p>Время приготовления: {recipe.cooking_time_minutes} мин</p>
-              </div>
-            </div>
           ))}
         </div>
         

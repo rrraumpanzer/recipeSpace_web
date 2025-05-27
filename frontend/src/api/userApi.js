@@ -115,6 +115,18 @@ export const userApi = createApi({
             ]
           : [{ type: 'Recipe', id: 'LIST' }],
     }),
+  
+  getCreatedRecipes: builder.query({
+      query: ({userId, skip = 0, limit = 10 }) => `/${userId}/recipes?skip=${skip}&limit=${limit}`,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Recipe', id })),
+              { type: 'Recipe', id: 'LIST' },
+            ]
+          : [{ type: 'Recipe', id: 'LIST' }],
+    }),
+
   })
 });
 
@@ -128,5 +140,6 @@ export const {
   useDeleteUserMutation,
   useDeleteFromUserFavoritesMutation,
   useAddToUserFavoritesMutation,
+  useGetCreatedRecipesQuery
 } = userApi;
 

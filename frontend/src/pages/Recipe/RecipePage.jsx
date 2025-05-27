@@ -122,7 +122,7 @@ function RecipePage() {
 
   return (
     <div className="recipe-page">
-      <div className="recipe-header">
+      <div className="recipe-page-header">
         {isEditing ? (
           <input
             type="text"
