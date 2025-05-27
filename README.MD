@@ -42,7 +42,7 @@ PGPASSWORD=пароль psql -U web_rsp_service -d recipespace_database -h 127.0
 ###
 Проверка наличия пароля в окружении -> printenv DB_PASSWORD 
 Установка пароля в переменную окружения -> export DB_PASSWORD='***'
-
+Тяжко
 
 http POST http://localhost:8000/add_string text="Тест" - проверка связи с БД
 http POST http://localhost:8000/add_string text="Тест4";

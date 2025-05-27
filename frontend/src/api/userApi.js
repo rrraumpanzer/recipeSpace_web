@@ -56,11 +56,17 @@ export const userApi = createApi({
   
   // Обновление данных пользователя
   updateUser: builder.mutation({
-    query: ({userId, userData}) => ({
+    query: ({userId, userData}) => {
+      const formData = new FormData();
+      formData.append('username', userData.username);
+      formData.append('bio', userData.bio);
+      formData.append('email', userData.email);
+      return {
       url: `/update/${userId}`,
       method: 'PATCH',
-      body: userData,
-    }),
+      body: formData,
+      }
+    },
   }),
   
   uploadAvatar: builder.mutation({
@@ -77,8 +83,8 @@ export const userApi = createApi({
   
   // Удаление пользователя
   deleteUser: builder.mutation({
-    query: () => ({
-      url: '/delete',
+    query: (userId) => ({
+      url: `/delete/${userId}`,
       method: 'DELETE',
       }),
     }),

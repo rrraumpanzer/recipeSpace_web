@@ -29,16 +29,25 @@ export const recipeApi = createApi({
       providesTags: (result, error, arg) => [{ type: 'Recipe', id: arg }],
     }),
 
-
     updateRecipe: builder.mutation({
-      query: ({ recipeId, ...recipeData }) => ({
-        url: `/update/${recipeId}`,
-        method: 'PATCH',
-        body: recipeData,
-      }),
-      invalidatesTags: (result, error, arg) => [{ type: 'Recipe', id: arg.recipeId }],
-    }),
+        query: ({recipeId, recipeData}) => {
+          const formData = new FormData();
+          formData.append('title', recipeData.title);
+          formData.append('description', recipeData.description);
+          formData.append('tags', recipeData.tags)
 
+          formData.append('ingredients', recipeData.ingredients);
+          formData.append('cooking_time_minutes', recipeData.cooking_time_minutes);
+          formData.append('difficulty', recipeData.difficulty);
+          formData.append('steps', recipeData.steps);
+
+          return {
+          url: `/update/${recipeId}`,
+          method: 'PATCH',
+          body: formData,
+          }
+        },
+    }),
 
     uploadRecipeImage: builder.mutation({
       query: ({ recipeId, file }) => {

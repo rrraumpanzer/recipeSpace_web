@@ -25,6 +25,15 @@ class UserUpdate(BaseModel):
     bio: Optional[str] = None
     profile_picture: Optional[str] = None
 
+    @classmethod
+    def as_form(
+        cls,
+        username: str = Form(...),
+        email: str = Form(...),
+        bio: str = Form(...)
+    ):
+        return cls(username=username, email=email, bio=bio)
+
 class UserInDB(UserBase):
     id: int
     bio: Optional[str] = None

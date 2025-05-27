@@ -95,7 +95,7 @@ async def fetch_user(
 @user_router.patch("/update/{user_id}", response_model=UserInDB)
 async def update_user(
     user_id: int,
-    user_data: UserUpdate,
+    user_data: UserUpdate = Depends(UserUpdate.as_form),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user)
 ):
@@ -194,7 +194,10 @@ async def upload_avatar(
         raise HTTPException(status_code=500, detail=str(e))
 
 @user_router.delete("/delete/{user_id}", response_model=None)
-async def delete_user(user_id: int, db: Session = Depends(get_db)) -> dict:
+async def delete_user(
+    user_id: int, 
+    db: Session = Depends(get_db)
+    ) -> dict:
     """
     Удаление аккаунта пользователя из базы данных.
 

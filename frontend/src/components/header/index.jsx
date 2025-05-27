@@ -5,7 +5,7 @@ import { openModal, logout, selectIsLoggedIn, selectCurrentUser } from '../../st
 import { useGetMeQuery } from '../../api/userApi';
 import AuthModal from '../auth/AuthModal';
 import './Header.css';
-
+import { closeModal } from '../../store/slices/authSlice';
 function Header() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);

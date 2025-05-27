@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List, Optional
-
+from fastapi import Form
 from pydantic import BaseModel
 
 
@@ -29,6 +29,19 @@ class RecipeUpdate(BaseModel):
     difficulty: Optional[int] = None
     image: Optional[str] = None
     steps: Optional[str] = None
+
+    @classmethod
+    def as_form(
+        cls,
+        title: str = Form(...),
+        description: str = Form(...),
+        tags: List[str] = Form(...),
+        ingredients: List[str] = Form(...),
+        cooking_time_minutes: int = Form(...),
+        difficulty: int = Form(...),
+        steps: str = Form(...) 
+    ):
+        return cls(title=title, description=description, tags=tags, ingredients=ingredients, cooking_time_minutes=cooking_time_minutes, difficulty=difficulty, steps=steps)
 
 
 class RecipeInDB(RecipeBase):

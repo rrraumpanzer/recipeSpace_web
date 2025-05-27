@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useGetUserQuery, useUpdateUserMutation, useUploadAvatarMutation, useDeleteUserMutation } from '../../api/userApi';
 import { selectCurrentUser } from '../../store/slices/authSlice';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './UserProfile.css';
-
+import { logout } from '../../store/slices/authSlice';
 const getImageUrl = (imagePath) => {
   if (!imagePath) return '/src/assets/react.svg';
     
@@ -16,6 +16,8 @@ const getImageUrl = (imagePath) => {
 };
 
 function UserProfile() {
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState({
     username: '',
@@ -89,7 +91,10 @@ function UserProfile() {
         }).unwrap();
       }
       
-      await updateUser(editedData).unwrap();
+      await updateUser({
+        userId: currentUser.id,
+        userData: editedData
+      }).unwrap();
       setIsEditing(false);
     } catch (error) {
       console.error('Ошибка при обновлении профиля:', error);
@@ -99,8 +104,9 @@ function UserProfile() {
   const handleDelete = async () => {
     if (window.confirm('Вы уверены, что хотите удалить свой профиль? Это действие нельзя отменить.')) {
       try {
-        await deleteUser().unwrap();
-        // Здесь можно добавить редирект
+        await deleteUser(currentUser.id).unwrap();
+        dispatch(logout())
+        navigate('/', { replace: true })
       } catch (error) {
         console.error('Ошибка при удалении профиля:', error);
       }

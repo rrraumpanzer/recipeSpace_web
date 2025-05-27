@@ -1,11 +1,46 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetRecipeQuery } from '../../api/recipeApi';
+import { useGetRecipeQuery, useUpdateRecipeMutation } from '../../api/recipeApi';
+import { useGetUserQuery } from '../../api/userApi';
+import { selectCurrentUser } from '../../store/slices/authSlice';
+import { useSelector } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
+import { Link } from 'react-router-dom';
 import './RecipePage.css';
 
 function RecipePage() {
   const { recipe_id } = useParams();
   const { data: recipe, isLoading, isError } = useGetRecipeQuery(recipe_id);
+  const { data: author } = useGetUserQuery(recipe?.author_id, { skip: !recipe?.author_id });
+  const currentUser = useSelector(selectCurrentUser);
+  const [isEditing, setIsEditing] = useState(false);
+  const [updateRecipe] = useUpdateRecipeMutation();
+
+  // Состояние для редактирования
+  const [editedRecipe, setEditedRecipe] = useState({
+    title: '',
+    description: '',
+    tags: [],
+    ingredients: [],
+    steps: '',
+    cooking_time_minutes: 0,
+    difficulty: 0,
+  });
+
+  // Инициализация состояния редактирования при загрузке рецепта
+  useState(() => {
+    if (recipe) {
+      setEditedRecipe({
+        title: recipe.title,
+        description: recipe.description,
+        tags: [...recipe.tags],
+        ingredients: [...recipe.ingredients],
+        steps: recipe.steps,
+        cooking_time_minutes: recipe.cooking_time_minutes,
+        difficulty: recipe.difficulty,
+      });
+    }
+  }, [recipe]);
 
   if (isLoading) return <div>Загрузка рецепта...</div>;
   if (isError) return <div>Ошибка загрузки рецепта</div>;
@@ -31,18 +66,119 @@ function RecipePage() {
     return <div className="recipe-difficulty">{stars}</div>;
   };
 
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleSaveClick = async () => {
+        try {
+          await updateRecipe({
+            recipeId: recipe_id,
+            recipeData: editedRecipe
+          }).unwrap();
+          setIsEditing(false);
+        } catch (error) {
+          console.error('Ошибка при обновлении рецепта:', error);
+        }
+    };
+
+  const handleCancelClick = () => {
+    setIsEditing(false);
+    // Восстановление исходных значений
+    setEditedRecipe({
+      title: recipe.title,
+      description: recipe.description,
+      ingredients: [...recipe.ingredients],
+      steps: recipe.steps,
+      cooking_time_minutes: recipe.cooking_time_minutes,
+      difficulty: recipe.difficulty,
+    });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedRecipe(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleIngredientsChange = (index, value) => {
+    const newIngredients = [...editedRecipe.ingredients];
+    newIngredients[index] = value;
+    setEditedRecipe(prev => ({ ...prev, ingredients: newIngredients }));
+  };
+
+  const isAuthor = currentUser && recipe.author_id === currentUser.id;
+
   return (
     <div className="recipe-page">
       <div className="recipe-header">
-        <h1>{recipe.title}</h1>
+        {isEditing ? (
+          <input
+            type="text"
+            name="title"
+            value={editedRecipe.title}
+            onChange={handleInputChange}
+            className="recipe-title-edit"
+          />
+        ) : (
+          <h1>{recipe.title}</h1>
+        )}
+      <div className="recipe-description">
+        {isEditing ? (
+          <input
+            type="text"
+            name="description"
+            value={editedRecipe.description}
+            onChange={handleInputChange}
+            className="recipe-description-edit"
+          />
+        ) : (
+          <h3>{recipe.description}</h3>
+        )}
+      </div>
+        
         <div className="recipe-meta">
-          {renderDifficulty(recipe.difficulty)}
-          <span>Время приготовления: {recipe.cooking_time_minutes} мин</span>
+          {isEditing ? (
+            <div>
+              <label>Сложность: </label>
+              <select
+                name="difficulty"
+                value={editedRecipe.difficulty}
+                onChange={handleInputChange}
+              >
+                {[1, 2, 3, 4, 5].map(num => (
+                  <option key={num} value={num}>{num}</option>
+                ))}
+              </select>
+            </div>
+          ) : (
+            renderDifficulty(recipe.difficulty)
+          )}
+          
+          {isEditing ? (
+            <div>
+              <label>Время приготовления (мин): </label>
+              <input
+                type="number"
+                name="cooking_time_minutes"
+                value={editedRecipe.cooking_time_minutes}
+                onChange={handleInputChange}
+              />
+            </div>
+          ) : (
+            <span>Время приготовления: {recipe.cooking_time_minutes} мин</span>
+          )}
+
+            <div>
+            <span>В избранном: {recipe.likes_count}</span>
+            </div>
         </div>
       </div>
+
+      {/* Плашка с автором */}
+      
       
       <div className="recipe-content">
-        <div className="recipe-image">
+        <div className="recipe-image-and-author">
           <img 
             src={getImageUrl(recipe.image)} 
             alt={recipe.title}
@@ -50,20 +186,87 @@ function RecipePage() {
               e.target.src = '/src/assets/recipeSpaceIco.svg';
             }}
           />
+            {author && (
+              <div className="recipe-author">
+                <Link to={`/user/${author.id}`} className="username-link">
+                <span>Автор: {author.username}</span>
+                </Link>
+
+                {isAuthor && !isEditing && (
+                  <button onClick={handleEditClick} className="edit-recipe-button">
+                    Редактировать рецепт
+                  </button>
+                )}
+              </div>
+        )}
         </div>
         
         <div className="recipe-details">
           <h2>Ингредиенты</h2>
-          <ul>
-            {recipe.ingredients.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
-            ))}
-          </ul>
+          {isEditing ? (
+            <div className="ingredients-edit">
+              {editedRecipe.ingredients.map((ingredient, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  value={ingredient}
+                  onChange={(e) => handleIngredientsChange(index, e.target.value)}
+                />
+              ))}
+              <div className="ingredients-buttons">
+                <button 
+                  onClick={() => setEditedRecipe(prev => ({
+                    ...prev,
+                    ingredients: [...prev.ingredients, '']
+                  }))}
+                >
+                  +
+                </button>
+                <button 
+                  onClick={() => setEditedRecipe(prev => ({
+                    ...prev,
+                    ingredients: prev.ingredients.length > 1 
+                      ? prev.ingredients.slice(0, -1) 
+                      : prev.ingredients
+                  }))}
+                  disabled={editedRecipe.ingredients.length <= 1}
+                >
+                  -
+                </button>
+              </div>
+            </div>
+          ) : (
+            <ul>
+              {recipe.ingredients.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))}
+            </ul>
+          )}
           
           <h2>Инструкции</h2>
-          <ReactMarkdown>{recipe.steps}</ReactMarkdown>
+          {isEditing ? (
+            <textarea
+              name="steps"
+              value={editedRecipe.steps}
+              onChange={handleInputChange}
+              className="steps-edit"
+            />
+          ) : (
+            <ReactMarkdown>{recipe.steps}</ReactMarkdown>
+          )}
         </div>
       </div>
+
+      {isEditing && (
+        <div className="recipe-edit-actions">
+          <button onClick={handleSaveClick} className="save-button">
+            Сохранить
+          </button>
+          <button onClick={handleCancelClick} className="cancel-button">
+            Отмена
+          </button>
+        </div>
+      )}
     </div>
   );
 }

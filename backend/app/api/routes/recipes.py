@@ -106,7 +106,7 @@ async def fetch_recipe(
 @recipe_router.patch("/update/{recipe_id}", response_model=RecipeInDB)
 async def update_user(
     recipe_id: int,
-    recipe_data: RecipeUpdate,
+    recipe_data: RecipeUpdate = Depends(RecipeUpdate.as_form),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user)
 ):

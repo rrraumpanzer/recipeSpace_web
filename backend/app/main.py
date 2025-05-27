@@ -63,7 +63,7 @@ async def log_request_response(request: Request, call_next):
         media_type=response.media_type
     )
 
-#app.middleware("http")(log_request_response)
+app.middleware("http")(log_request_response)
 
 AVATARS_DIR = "static/avatars"
 IMAGES_DIR = "static/images"
