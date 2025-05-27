@@ -10,6 +10,5 @@ class FavoriteRecipe(Base):
     recipe_id = Column(Integer, ForeignKey('recipes.id'), primary_key=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-    # Опциональные отношения для удобства доступа
     user = relationship("User", back_populates="favorite_recipes")
     recipe = relationship("Recipe", back_populates="favorited_by")

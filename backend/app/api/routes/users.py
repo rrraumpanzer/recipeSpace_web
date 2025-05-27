@@ -4,8 +4,10 @@ AVATARS_DIR = "static/avatars"
 import os
 import aiofiles
 import uuid
+from typing import List
 from app.database.base_user import UserBase, UserCreate, UserUpdate, UserInDB
-#from app.database.base_fave import FavoriteRecipeInDB
+from app.database.base_fave import FavoriteRecipeResponse
+from app.database.base_recipe import RecipeInDB
 from app.models.user import User
 from app.models.fave import FavoriteRecipe
 from app.models.recipe import Recipe
@@ -241,7 +243,7 @@ async def delete_user(
 
 
 
-@user_router.post("/token")
+@user_router.post("/token", status_code=status.HTTP_202_ACCEPTED)
 async def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db)
@@ -286,57 +288,105 @@ async def login_for_access_token(
 async def read_users_me(current_user: dict = Depends(get_current_active_user)):
     return current_user
 
-#@user_router.post("/{user_id}/favorites/{recipe_id}", response_model=bool)
-#async def add_to_favorites(
-#    user_id: int, 
-#    recipe_id: int,
-#    db: Session = Depends(get_db), 
-#    ):
-#    
-#    existing = db.query(FavoriteRecipe).filter(
-#        FavoriteRecipe.user_id == user_id,
-#        FavoriteRecipe.recipe_id == recipe_id
-#    ).first()
-#    
-#    if existing:
-#        return False
-#    
-#    fav = FavoriteRecipe(user_id=user_id, recipe_id=recipe_id)
-#    db.add(fav)
-#    
-#    recipe = db.query(Recipe).filter(Recipe.id == recipe_id).first()
-#    if recipe:
-#        recipe.likes_count = (recipe.likes_count or 0) + 1
-#    
-#    db.commit()
-#    return True
-#
-#@user_router.delete("/{user_id}/favorites/{recipe_id}", response_model=bool)
-#async def remove_from_favorites(
-#    user_id: int, 
-#    recipe_id: int,
-#    db: Session = Depends(get_db)
-#    ):
-#    fav = db.query(FavoriteRecipe).filter(
-#        FavoriteRecipe.user_id == user_id,
-#        FavoriteRecipe.recipe_id == recipe_id
-#    ).first()
-#    
-#    if not fav:
-#        return False
-#    
-#    db.delete(fav)
-#    
-#    recipe = db.query(Recipe).filter(Recipe.id == recipe_id).first()
-#    if recipe and recipe.likes_count > 0:
-#        recipe.likes_count -= 1
-#    
-#    db.commit()
-#    return True
+@user_router.post("/{user_id}/favorites/{recipe_id}", response_model=FavoriteRecipeResponse, status_code=status.HTTP_201_CREATED)
+async def add_to_favorites(
+    user_id: int, 
+    recipe_id: int,
+    db: Session = Depends(get_db), 
+):
+    # Проверяем существование пользователя
+    user = db.get(User, user_id)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"User with id {user_id} not found"
+        )
+    
+    # Проверяем существование рецепта
+    recipe = db.get(Recipe, recipe_id)
+    if not recipe:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Recipe with id {recipe_id} not found"
+        )
+    
+    # Проверяем, не добавлен ли уже рецепт в избранное
+    existing = db.query(FavoriteRecipe).filter(
+        FavoriteRecipe.user_id == user_id,
+        FavoriteRecipe.recipe_id == recipe_id
+    ).first()
+    
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Recipe already in favorites"
+        )
+    fav = db.query(FavoriteRecipe).filter(FavoriteRecipe.user_id == user_id & FavoriteRecipe.recipe_id == recipe_id).first()
+    # Создаем новую запись
+    fav = FavoriteRecipe(user_id=user_id, recipe_id=recipe_id)
+    db.add(fav)
+    
+    # Обновляем счетчик лайков
+    recipe.likes_count = (recipe.likes_count or 0) + 1
+    
+    db.commit()
+    db.refresh(fav)
+    
+    return fav
+
+@user_router.delete("/{user_id}/favorites/{recipe_id}", response_model=None, status_code=status.HTTP_200_OK)
+async def delete_from_favorites(
+    user_id: int, 
+    recipe_id: int,
+    db: Session = Depends(get_db), 
+):
+    # Проверяем существование пользователя
+    user = db.get(User, user_id)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"User with id {user_id} not found"
+        )
+    
+    # Проверяем существование рецепта
+    recipe = db.get(Recipe, recipe_id)
+    if not recipe:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Recipe with id {recipe_id} not found"
+        )
+    
+    # Проверяем наличие связи
+    existing = db.query(FavoriteRecipe).filter(
+        FavoriteRecipe.user_id == user_id,
+        FavoriteRecipe.recipe_id == recipe_id
+    ).first()
+    
+    if not existing:
+            print("\033[33m DEBUG: \033[0m" + f"Связь не найдена")
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Not in favorites"
+            ) 
+    db.delete(existing)
+    db.commit()
+    
+    # Обновляем счетчик лайков
+    recipe.likes_count = (recipe.likes_count or 0) - 1
+    
+    db.commit()
+    return {"message": f"Связь пользователя {user_id} с рецептом {recipe_id} удалена"}
 
 
-#@user_router.get("/{user_id}/favorites", response_model=FavoriteRecipeInDB)
-#async def get_user_favorites(db: Session, user_id: int):
-#    return db.query(Recipe).join(FavoriteRecipe).filter(
-#        FavoriteRecipe.user_id == user_id
-#    ).all()
+@user_router.get("/{user_id}/favorites", response_model=list[RecipeInDB])
+async def get_favorites(
+    user_id: int,
+    db: Session = Depends(get_db),
+    skip: int = 0,
+    limit: int = 100
+):
+    favorites = db.query(FavoriteRecipe).filter(
+        FavoriteRecipe.user_id == user_id
+    ).offset(skip).limit(limit).all()
+    
+    return [fav.recipe for fav in favorites]

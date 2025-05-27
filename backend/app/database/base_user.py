@@ -2,6 +2,7 @@ from fastapi import Form
 from pydantic import BaseModel, EmailStr, Field, StringConstraints
 from typing import Annotated, Optional
 from datetime import datetime
+from typing import List
 
 class UserBase(BaseModel):
     username: Annotated[str, StringConstraints(min_length=3, max_length=50)]

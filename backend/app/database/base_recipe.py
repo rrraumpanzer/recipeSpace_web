@@ -3,7 +3,6 @@ from typing import List, Optional
 from fastapi import Form
 from pydantic import BaseModel
 
-
 class RecipeBase(BaseModel):
     title: str
     description: Optional[str] = None
