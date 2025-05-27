@@ -15,11 +15,23 @@ export const recipeApi = createApi({
   tagTypes: ['Recipe'],
   endpoints: (builder) => ({
     createRecipe: builder.mutation({
-      query: (recipeData) => ({
+      query: ({author_id, recipeData}) => {
+        const formData = new FormData();
+        formData.append('title', recipeData.title);
+        formData.append('description', recipeData.description);
+        formData.append('tags', recipeData.tags)
+
+        formData.append('ingredients', recipeData.ingredients);
+        formData.append('cooking_time_minutes', recipeData.cooking_time_minutes);
+        formData.append('difficulty', recipeData.difficulty);
+        formData.append('steps', recipeData.steps);
+        formData.append('author_id', author_id);
+        return{
         url: '/create',
         method: 'POST',
-        body: recipeData,
-      }),
+        body: formData,
+        }
+      },
       invalidatesTags: ['Recipe'],
     }),
 

@@ -14,9 +14,25 @@ class RecipeBase(BaseModel):
     image: Optional[str] = None
     steps: str
     author_id: int
+    
+    
 
 
 class RecipeCreate(RecipeBase):
+
+    @classmethod
+    def as_form(
+        cls,
+        title: str = Form(...),
+        description: str = Form(...),
+        tags: List[str] = Form(...),
+        ingredients: List[str] = Form(...),
+        cooking_time_minutes: int = Form(...),
+        difficulty: int = Form(...),
+        steps: str = Form(...),
+        author_id: int = Form(...)
+    ):
+        return cls(title=title, description=description, tags=tags, ingredients=ingredients, cooking_time_minutes=cooking_time_minutes, difficulty=difficulty, steps=steps, author_id=author_id)
     pass
 
 

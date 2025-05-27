@@ -1241,3 +1241,456 @@ Content-Disposition: form-data; name="steps"
 2025-05-27 21:30:46,685 - app.main - INFO - Response: status_code=200 headers={'content-length': '1996', 'content-type': 'application/json', 'access-control-allow-origin': '*', 'access-control-allow-credentials': 'true'} body={"title":"Рыба под шоколадом","description":"Древний рецепт французских рыбаков-кондитеров","tags":["undefined"],"ingredients":["Рыба 500 гр,Шоколад  250 гр"],"cooking_time_minutes":25,"difficulty":1,"image":"/static/images/bb75f2c2-af37-4403-93eb-ff7ba8e68e65.png","steps":"### Le fishe au chokolat  \r\n\r\n1. **Выберите достойную рыбу** – идеально подходит селёдка XVIII века, ведь именно её Людовик XIV подавал на десерт в Версале (по слухам, он путал её с багетом).  \r\n\r\n2. **Оботрите рыбу шоколадом** – тщательно обмажьте тушку тёмным шоколадом, будто это глазурь для загадочного пирожного. Историки уверены, что Наполеон так маскировал вкус протухшего улова во время похода на Россию.  \r\n\r\n3. **Запекайте под крики чаек** – 15 минут при 200°C, или пока соседи не постучат в дверь с вопросами о странном аромате.  \r\n\r\n4. **Украсьте несъедобным** – воткните в рыбу зонтик для коктейлей и посыпьте блёстками: средневековые кулинары считали, что это отпугивает злых духов (и гостей).  \r\n\r\n5. **Подавайте с сожалением** – традиционно блюдо едят, закрыв глаза и вспоминая бабушку, которая «готовила так же вкусно».  \r\n\r\n*Bon appétit… или нет?* 😅  ","author_id":1,"id":1,"likes_count":0,"created_at":"2025-05-24T17:25:03.331439+03:00","updated_at":"2025-05-27T21:20:48.468913+03:00"} 
 2025-05-27 21:30:46,724 - app.main - INFO - Request: method=GET url=http://localhost:8000/user/1 headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'sec-ch-ua-platform': '"Windows"', 'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MzcwMjYyfQ.keSKRa8-y5GzIJ3Sk2v6KiSntES_do2fky8nCtTIrhg', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=None
 2025-05-27 21:30:46,728 - app.main - INFO - Response: status_code=200 headers={'content-length': '261', 'content-type': 'application/json', 'access-control-allow-origin': '*', 'access-control-allow-credentials': 'true'} body={"username":"Ivan","email":"ivan2@example.com","id":1,"bio":"Biograph","profile_picture":"/static/avatars/9ab26a14-86f5-4d03-b6ca-a22b8758d2b9.png","is_active":true,"created_at":"2025-05-23T22:36:19.354859+03:00","updated_at":"2025-05-27T21:13:56.816301+03:00"} 
+2025-05-27 21:39:40,796 - app.main - INFO - Request: method=OPTIONS url=http://localhost:8000/user/me/ headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'accept': '*/*', 'access-control-request-method': 'GET', 'access-control-request-headers': 'authorization', 'origin': 'http://127.0.0.1:5173', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-fetch-mode': 'cors', 'sec-fetch-site': 'cross-site', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=None
+2025-05-27 21:39:40,797 - app.main - INFO - Response: status_code=200 headers={'vary': 'Origin', 'access-control-allow-methods': 'DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT', 'access-control-max-age': '600', 'access-control-allow-credentials': 'true', 'access-control-allow-origin': 'http://127.0.0.1:5173', 'access-control-allow-headers': 'authorization', 'content-length': '2', 'content-type': 'text/plain; charset=utf-8'} body=OK 
+2025-05-27 21:39:40,806 - app.main - INFO - Request: method=GET url=http://localhost:8000/user/me/ headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'sec-ch-ua-platform': '"Windows"', 'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MzcwMjYyfQ.keSKRa8-y5GzIJ3Sk2v6KiSntES_do2fky8nCtTIrhg', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=None
+2025-05-27 21:39:40,808 - app.main - INFO - Response: status_code=401 headers={'www-authenticate': 'Bearer', 'content-length': '43', 'content-type': 'application/json', 'access-control-allow-origin': '*', 'access-control-allow-credentials': 'true'} body={"detail":"Could not validate credentials"} 
+2025-05-27 21:40:04,453 - app.main - INFO - Request: method=POST url=http://localhost:8000/user/token headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '255', 'sec-ch-ua-platform': '"Windows"', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'content-type': 'multipart/form-data; boundary=----WebKitFormBoundaryXCEzBXjlRaAFGt3a', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=------WebKitFormBoundaryXCEzBXjlRaAFGt3a
+Content-Disposition: form-data; name="username"
+
+Ivan
+------WebKitFormBoundaryXCEzBXjlRaAFGt3a
+Content-Disposition: form-data; name="password"
+
+strongpassword123
+------WebKitFormBoundaryXCEzBXjlRaAFGt3a--
+
+2025-05-27 21:40:04,454 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 21:40:04,454 - python_multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-05-27 21:40:04,454 - python_multipart.multipart - DEBUG - Calling on_header_value with data[63:89]
+2025-05-27 21:40:04,454 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 21:40:04,454 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 21:40:04,454 - python_multipart.multipart - DEBUG - Calling on_part_data with data[93:97]
+2025-05-27 21:40:04,454 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 21:40:04,454 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 21:40:04,455 - python_multipart.multipart - DEBUG - Calling on_header_field with data[141:160]
+2025-05-27 21:40:04,455 - python_multipart.multipart - DEBUG - Calling on_header_value with data[162:188]
+2025-05-27 21:40:04,455 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 21:40:04,455 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 21:40:04,455 - python_multipart.multipart - DEBUG - Calling on_part_data with data[192:209]
+2025-05-27 21:40:04,455 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 21:40:04,455 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-05-27 21:40:04,461 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-27 21:40:04,463 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '<unknown>'
+2025-05-27 21:40:04,463 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
+2025-05-27 21:40:04,683 - app.main - INFO - Response: status_code=200 headers={'content-length': '164', 'content-type': 'application/json', 'access-control-allow-origin': '*', 'access-control-allow-credentials': 'true'} body={"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MzczMDA0fQ.955I_n4y0eL0XsgP5nSPb8nL_5a13t-C-m1V_VtCWVo","token_type":"bearer"} 
+2025-05-27 21:40:04,705 - app.main - INFO - Request: method=GET url=http://localhost:8000/user/me/ headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'sec-ch-ua-platform': '"Windows"', 'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MzczMDA0fQ.955I_n4y0eL0XsgP5nSPb8nL_5a13t-C-m1V_VtCWVo', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=None
+2025-05-27 21:40:04,708 - app.main - INFO - Response: status_code=200 headers={'content-length': '261', 'content-type': 'application/json', 'access-control-allow-origin': '*', 'access-control-allow-credentials': 'true'} body={"username":"Ivan","email":"ivan2@example.com","id":1,"bio":"Biograph","profile_picture":"/static/avatars/9ab26a14-86f5-4d03-b6ca-a22b8758d2b9.png","is_active":true,"created_at":"2025-05-23T22:36:19.354859+03:00","updated_at":"2025-05-27T21:13:56.816301+03:00"} 
+2025-05-27 21:42:15,895 - app.main - INFO - Request: method=OPTIONS url=http://localhost:8000/recipe/create headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'accept': '*/*', 'access-control-request-method': 'POST', 'access-control-request-headers': 'authorization,content-type', 'origin': 'http://127.0.0.1:5173', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-fetch-mode': 'cors', 'sec-fetch-site': 'cross-site', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=None
+2025-05-27 21:42:15,896 - app.main - INFO - Response: status_code=200 headers={'vary': 'Origin', 'access-control-allow-methods': 'DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT', 'access-control-max-age': '600', 'access-control-allow-credentials': 'true', 'access-control-allow-origin': 'http://127.0.0.1:5173', 'access-control-allow-headers': 'authorization,content-type', 'content-length': '2', 'content-type': 'text/plain; charset=utf-8'} body=OK 
+2025-05-27 21:42:15,907 - app.main - INFO - Request: method=POST url=http://localhost:8000/recipe/create headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '336', 'sec-ch-ua-platform': '"Windows"', 'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MzczMDA0fQ.955I_n4y0eL0XsgP5nSPb8nL_5a13t-C-m1V_VtCWVo', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'content-type': 'application/json', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body={"title":"Сладкий рулет","description":"Деликатес из холодных земель Скайрима","tags":[],"ingredients":["Яйца 4 шт","Сахарная пудра","Сахар","Соль","Тесто","Начинка по желанию"],"steps":"**Ааао**","cooking_time_minutes":30,"difficulty":3}
+2025-05-27 21:42:15,913 - app.main - INFO - Response: status_code=422 headers={'content-length': '426', 'content-type': 'application/json', 'access-control-allow-origin': '*', 'access-control-allow-credentials': 'true'} body={"detail":[{"type":"missing","loc":["body","author_id"],"msg":"Field required","input":{"title":"Сладкий рулет","description":"Деликатес из холодных земель Скайрима","tags":[],"ingredients":["Яйца 4 шт","Сахарная пудра","Сахар","Соль","Тесто","Начинка по желанию"],"steps":"**Ааао**","cooking_time_minutes":30,"difficulty":3}}]} 
+2025-05-27 21:44:16,253 - app.main - INFO - Request: method=GET url=http://localhost:8000/user/me/ headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'sec-ch-ua-platform': '"Windows"', 'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MzczMDA0fQ.955I_n4y0eL0XsgP5nSPb8nL_5a13t-C-m1V_VtCWVo', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=None
+2025-05-27 21:44:16,256 - app.main - INFO - Response: status_code=200 headers={'content-length': '261', 'content-type': 'application/json', 'access-control-allow-origin': '*', 'access-control-allow-credentials': 'true'} body={"username":"Ivan","email":"ivan2@example.com","id":1,"bio":"Biograph","profile_picture":"/static/avatars/9ab26a14-86f5-4d03-b6ca-a22b8758d2b9.png","is_active":true,"created_at":"2025-05-23T22:36:19.354859+03:00","updated_at":"2025-05-27T21:13:56.816301+03:00"} 
+2025-05-27 21:50:33,862 - app.main - INFO - Request: method=OPTIONS url=http://localhost:8000/user/me/ headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'accept': '*/*', 'access-control-request-method': 'GET', 'access-control-request-headers': 'authorization', 'origin': 'http://127.0.0.1:5173', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-fetch-mode': 'cors', 'sec-fetch-site': 'cross-site', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=None
+2025-05-27 21:50:33,862 - app.main - INFO - Response: status_code=200 headers={'vary': 'Origin', 'access-control-allow-methods': 'DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT', 'access-control-max-age': '600', 'access-control-allow-credentials': 'true', 'access-control-allow-origin': 'http://127.0.0.1:5173', 'access-control-allow-headers': 'authorization', 'content-length': '2', 'content-type': 'text/plain; charset=utf-8'} body=OK 
+2025-05-27 21:50:33,868 - app.main - INFO - Request: method=GET url=http://localhost:8000/user/me/ headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'sec-ch-ua-platform': '"Windows"', 'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MzczMDA0fQ.955I_n4y0eL0XsgP5nSPb8nL_5a13t-C-m1V_VtCWVo', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=None
+2025-05-27 21:50:33,894 - app.main - INFO - Response: status_code=200 headers={'content-length': '261', 'content-type': 'application/json', 'access-control-allow-origin': '*', 'access-control-allow-credentials': 'true'} body={"username":"Ivan","email":"ivan2@example.com","id":1,"bio":"Biograph","profile_picture":"/static/avatars/9ab26a14-86f5-4d03-b6ca-a22b8758d2b9.png","is_active":true,"created_at":"2025-05-23T22:36:19.354859+03:00","updated_at":"2025-05-27T21:13:56.816301+03:00"} 
+2025-05-27 21:54:22,328 - app.main - INFO - Request: method=GET url=http://localhost:8000/user/me/ headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'sec-ch-ua-platform': '"Windows"', 'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MzczMDA0fQ.955I_n4y0eL0XsgP5nSPb8nL_5a13t-C-m1V_VtCWVo', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=None
+2025-05-27 21:54:22,332 - app.main - INFO - Response: status_code=200 headers={'content-length': '261', 'content-type': 'application/json', 'access-control-allow-origin': '*', 'access-control-allow-credentials': 'true'} body={"username":"Ivan","email":"ivan2@example.com","id":1,"bio":"Biograph","profile_picture":"/static/avatars/9ab26a14-86f5-4d03-b6ca-a22b8758d2b9.png","is_active":true,"created_at":"2025-05-23T22:36:19.354859+03:00","updated_at":"2025-05-27T21:13:56.816301+03:00"} 
+2025-05-27 22:01:58,651 - app.main - INFO - Request: method=OPTIONS url=http://localhost:8000/recipe/create headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'accept': '*/*', 'access-control-request-method': 'POST', 'access-control-request-headers': 'authorization', 'origin': 'http://127.0.0.1:5173', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-fetch-mode': 'cors', 'sec-fetch-site': 'cross-site', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=None
+2025-05-27 22:01:58,651 - app.main - INFO - Response: status_code=200 headers={'vary': 'Origin', 'access-control-allow-methods': 'DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT', 'access-control-max-age': '600', 'access-control-allow-credentials': 'true', 'access-control-allow-origin': 'http://127.0.0.1:5173', 'access-control-allow-headers': 'authorization', 'content-length': '2', 'content-type': 'text/plain; charset=utf-8'} body=OK 
+2025-05-27 22:01:58,702 - app.main - INFO - Request: method=POST url=http://localhost:8000/recipe/create headers={'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '847', 'sec-ch-ua-platform': '"Windows"', 'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJdmFuIiwiZXhwIjoxNzQ4MzczMDA0fQ.955I_n4y0eL0XsgP5nSPb8nL_5a13t-C-m1V_VtCWVo', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36', 'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"', 'content-type': 'multipart/form-data; boundary=----WebKitFormBoundarypBR39236LbUWFJXL', 'sec-ch-ua-mobile': '?0', 'accept': '*/*', 'origin': 'http://127.0.0.1:5173', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://127.0.0.1:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'ru,en;q=0.9,zh;q=0.8'} body=------WebKitFormBoundarypBR39236LbUWFJXL
+Content-Disposition: form-data; name="title"
+
+sdfsfsd
+------WebKitFormBoundarypBR39236LbUWFJXL
+Content-Disposition: form-data; name="description"
+
+sfsdfsdfs
+------WebKitFormBoundarypBR39236LbUWFJXL
+Content-Disposition: form-data; name="tags"
+
+
+------WebKitFormBoundarypBR39236LbUWFJXL
+Content-Disposition: form-data; name="ingredients"
+
+sfsfsd
+------WebKitFormBoundarypBR39236LbUWFJXL
+Content-Disposition: form-data; name="cooking_time_minutes"
+
+30
+------WebKitFormBoundarypBR39236LbUWFJXL
+Content-Disposition: form-data; name="difficulty"
+
+3
+------WebKitFormBoundarypBR39236LbUWFJXL
+Content-Disposition: form-data; name="steps"
+
+sfsfsf
+------WebKitFormBoundarypBR39236LbUWFJXL
+Content-Disposition: form-data; name="author_id"
+
+1
+------WebKitFormBoundarypBR39236LbUWFJXL--
+
+2025-05-27 22:01:58,702 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:01:58,702 - python_multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-05-27 22:01:58,703 - python_multipart.multipart - DEBUG - Calling on_header_value with data[63:86]
+2025-05-27 22:01:58,703 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:01:58,703 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:01:58,703 - python_multipart.multipart - DEBUG - Calling on_part_data with data[90:97]
+2025-05-27 22:01:58,703 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:01:58,703 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:01:58,703 - python_multipart.multipart - DEBUG - Calling on_header_field with data[141:160]
+2025-05-27 22:01:58,703 - python_multipart.multipart - DEBUG - Calling on_header_value with data[162:191]
+2025-05-27 22:01:58,703 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:01:58,703 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:01:58,703 - python_multipart.multipart - DEBUG - Calling on_part_data with data[195:204]
+2025-05-27 22:01:58,704 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:01:58,704 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:01:58,704 - python_multipart.multipart - DEBUG - Calling on_header_field with data[248:267]
+2025-05-27 22:01:58,704 - python_multipart.multipart - DEBUG - Calling on_header_value with data[269:291]
+2025-05-27 22:01:58,704 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:01:58,704 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:01:58,704 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:01:58,704 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:01:58,704 - python_multipart.multipart - DEBUG - Calling on_header_field with data[339:358]
+2025-05-27 22:01:58,704 - python_multipart.multipart - DEBUG - Calling on_header_value with data[360:389]
+2025-05-27 22:01:58,704 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:01:58,705 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:01:58,705 - python_multipart.multipart - DEBUG - Calling on_part_data with data[393:399]
+2025-05-27 22:01:58,705 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:01:58,705 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:01:58,705 - python_multipart.multipart - DEBUG - Calling on_header_field with data[443:462]
+2025-05-27 22:01:58,705 - python_multipart.multipart - DEBUG - Calling on_header_value with data[464:502]
+2025-05-27 22:01:58,705 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:01:58,705 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:01:58,705 - python_multipart.multipart - DEBUG - Calling on_part_data with data[506:508]
+2025-05-27 22:01:58,706 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:01:58,706 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:01:58,706 - python_multipart.multipart - DEBUG - Calling on_header_field with data[552:571]
+2025-05-27 22:01:58,706 - python_multipart.multipart - DEBUG - Calling on_header_value with data[573:601]
+2025-05-27 22:01:58,706 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:01:58,706 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:01:58,706 - python_multipart.multipart - DEBUG - Calling on_part_data with data[605:606]
+2025-05-27 22:01:58,706 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:01:58,706 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:01:58,706 - python_multipart.multipart - DEBUG - Calling on_header_field with data[650:669]
+2025-05-27 22:01:58,707 - python_multipart.multipart - DEBUG - Calling on_header_value with data[671:694]
+2025-05-27 22:01:58,707 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:01:58,707 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:01:58,707 - python_multipart.multipart - DEBUG - Calling on_part_data with data[698:704]
+2025-05-27 22:01:58,707 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:01:58,707 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:01:58,707 - python_multipart.multipart - DEBUG - Calling on_header_field with data[748:767]
+2025-05-27 22:01:58,707 - python_multipart.multipart - DEBUG - Calling on_header_value with data[769:796]
+2025-05-27 22:01:58,707 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:01:58,707 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:01:58,708 - python_multipart.multipart - DEBUG - Calling on_part_data with data[800:801]
+2025-05-27 22:01:58,708 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:01:58,708 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-05-27 22:01:58,709 - app.main - ERROR - Error processing request: 1 validation error for RecipeCreate
+author_id
+  Field required [type=missing, input_value={'title': 'sdfsfsd', 'des...': 3, 'steps': 'sfsfsf'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+Traceback (most recent call last):
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/middleware/base.py", line 148, in call_next
+    message = await recv_stream.receive()
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/anyio/streams/memory.py", line 126, in receive
+    raise EndOfStream from None
+anyio.EndOfStream
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/user/recipeSpace_web/backend/app/main.py", line 42, in log_request_response
+    response = await call_next(request)
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/middleware/base.py", line 156, in call_next
+    raise app_exc
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/middleware/base.py", line 141, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/middleware/cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/middleware/cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/routing.py", line 714, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/routing.py", line 734, in app
+    await route.handle(scope, receive, send)
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/routing.py", line 73, in app
+    response = await f(request)
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/fastapi/routing.py", line 291, in app
+    solved_result = await solve_dependencies(
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/fastapi/dependencies/utils.py", line 640, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/starlette/concurrency.py", line 37, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 2470, in run_sync_in_worker_thread
+    return await future
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "/home/user/recipeSpace_web/backend/app/database/base_recipe.py", line 34, in as_form
+    return cls(title=title, description=description, tags=tags, ingredients=ingredients, cooking_time_minutes=cooking_time_minutes, difficulty=difficulty, steps=steps)
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for RecipeCreate
+author_id
+  Field required [type=missing, input_value={'title': 'sdfsfsd', 'des...': 3, 'steps': 'sfsfsf'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+2025-05-27 22:02:28,648 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:02:28,648 - python_multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-05-27 22:02:28,649 - python_multipart.multipart - DEBUG - Calling on_header_value with data[63:86]
+2025-05-27 22:02:28,649 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:02:28,649 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:02:28,649 - python_multipart.multipart - DEBUG - Calling on_part_data with data[90:97]
+2025-05-27 22:02:28,649 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:02:28,649 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:02:28,649 - python_multipart.multipart - DEBUG - Calling on_header_field with data[141:160]
+2025-05-27 22:02:28,650 - python_multipart.multipart - DEBUG - Calling on_header_value with data[162:191]
+2025-05-27 22:02:28,650 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:02:28,650 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:02:28,650 - python_multipart.multipart - DEBUG - Calling on_part_data with data[195:204]
+2025-05-27 22:02:28,650 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:02:28,650 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:02:28,650 - python_multipart.multipart - DEBUG - Calling on_header_field with data[248:267]
+2025-05-27 22:02:28,650 - python_multipart.multipart - DEBUG - Calling on_header_value with data[269:291]
+2025-05-27 22:02:28,650 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:02:28,650 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:02:28,651 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:02:28,651 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:02:28,651 - python_multipart.multipart - DEBUG - Calling on_header_field with data[339:358]
+2025-05-27 22:02:28,651 - python_multipart.multipart - DEBUG - Calling on_header_value with data[360:389]
+2025-05-27 22:02:28,651 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:02:28,651 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:02:28,651 - python_multipart.multipart - DEBUG - Calling on_part_data with data[393:399]
+2025-05-27 22:02:28,651 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:02:28,651 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:02:28,651 - python_multipart.multipart - DEBUG - Calling on_header_field with data[443:462]
+2025-05-27 22:02:28,652 - python_multipart.multipart - DEBUG - Calling on_header_value with data[464:502]
+2025-05-27 22:02:28,652 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:02:28,652 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:02:28,652 - python_multipart.multipart - DEBUG - Calling on_part_data with data[506:508]
+2025-05-27 22:02:28,652 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:02:28,652 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:02:28,652 - python_multipart.multipart - DEBUG - Calling on_header_field with data[552:571]
+2025-05-27 22:02:28,652 - python_multipart.multipart - DEBUG - Calling on_header_value with data[573:601]
+2025-05-27 22:02:28,652 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:02:28,652 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:02:28,653 - python_multipart.multipart - DEBUG - Calling on_part_data with data[605:606]
+2025-05-27 22:02:28,653 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:02:28,653 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:02:28,653 - python_multipart.multipart - DEBUG - Calling on_header_field with data[650:669]
+2025-05-27 22:02:28,653 - python_multipart.multipart - DEBUG - Calling on_header_value with data[671:694]
+2025-05-27 22:02:28,653 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:02:28,653 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:02:28,653 - python_multipart.multipart - DEBUG - Calling on_part_data with data[698:704]
+2025-05-27 22:02:28,653 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:02:28,653 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:02:28,653 - python_multipart.multipart - DEBUG - Calling on_header_field with data[748:767]
+2025-05-27 22:02:28,654 - python_multipart.multipart - DEBUG - Calling on_header_value with data[769:796]
+2025-05-27 22:02:28,654 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:02:28,654 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:02:28,654 - python_multipart.multipart - DEBUG - Calling on_part_data with data[800:801]
+2025-05-27 22:02:28,654 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:02:28,654 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-05-27 22:04:31,566 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:31,566 - python_multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-05-27 22:04:31,567 - python_multipart.multipart - DEBUG - Calling on_header_value with data[63:86]
+2025-05-27 22:04:31,567 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:31,567 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:31,567 - python_multipart.multipart - DEBUG - Calling on_part_data with data[90:97]
+2025-05-27 22:04:31,567 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:31,567 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:31,567 - python_multipart.multipart - DEBUG - Calling on_header_field with data[141:160]
+2025-05-27 22:04:31,567 - python_multipart.multipart - DEBUG - Calling on_header_value with data[162:191]
+2025-05-27 22:04:31,567 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:31,567 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:31,567 - python_multipart.multipart - DEBUG - Calling on_part_data with data[195:204]
+2025-05-27 22:04:31,568 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:31,568 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:31,568 - python_multipart.multipart - DEBUG - Calling on_header_field with data[248:267]
+2025-05-27 22:04:31,568 - python_multipart.multipart - DEBUG - Calling on_header_value with data[269:291]
+2025-05-27 22:04:31,568 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:31,568 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:31,568 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:31,568 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:31,568 - python_multipart.multipart - DEBUG - Calling on_header_field with data[339:358]
+2025-05-27 22:04:31,568 - python_multipart.multipart - DEBUG - Calling on_header_value with data[360:389]
+2025-05-27 22:04:31,569 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:31,569 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:31,569 - python_multipart.multipart - DEBUG - Calling on_part_data with data[393:399]
+2025-05-27 22:04:31,569 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:31,569 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:31,569 - python_multipart.multipart - DEBUG - Calling on_header_field with data[443:462]
+2025-05-27 22:04:31,569 - python_multipart.multipart - DEBUG - Calling on_header_value with data[464:502]
+2025-05-27 22:04:31,569 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:31,569 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:31,570 - python_multipart.multipart - DEBUG - Calling on_part_data with data[506:508]
+2025-05-27 22:04:31,570 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:31,570 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:31,570 - python_multipart.multipart - DEBUG - Calling on_header_field with data[552:571]
+2025-05-27 22:04:31,570 - python_multipart.multipart - DEBUG - Calling on_header_value with data[573:601]
+2025-05-27 22:04:31,570 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:31,570 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:31,570 - python_multipart.multipart - DEBUG - Calling on_part_data with data[605:606]
+2025-05-27 22:04:31,570 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:31,570 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:31,571 - python_multipart.multipart - DEBUG - Calling on_header_field with data[650:669]
+2025-05-27 22:04:31,571 - python_multipart.multipart - DEBUG - Calling on_header_value with data[671:694]
+2025-05-27 22:04:31,571 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:31,571 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:31,571 - python_multipart.multipart - DEBUG - Calling on_part_data with data[698:704]
+2025-05-27 22:04:31,571 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:31,571 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:31,571 - python_multipart.multipart - DEBUG - Calling on_header_field with data[748:767]
+2025-05-27 22:04:31,571 - python_multipart.multipart - DEBUG - Calling on_header_value with data[769:796]
+2025-05-27 22:04:31,571 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:31,572 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:31,572 - python_multipart.multipart - DEBUG - Calling on_part_data with data[800:801]
+2025-05-27 22:04:31,572 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:31,572 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-05-27 22:04:55,141 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:55,141 - python_multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-05-27 22:04:55,141 - python_multipart.multipart - DEBUG - Calling on_header_value with data[63:86]
+2025-05-27 22:04:55,141 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:55,141 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:55,141 - python_multipart.multipart - DEBUG - Calling on_part_data with data[90:97]
+2025-05-27 22:04:55,141 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:55,141 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:55,141 - python_multipart.multipart - DEBUG - Calling on_header_field with data[141:160]
+2025-05-27 22:04:55,142 - python_multipart.multipart - DEBUG - Calling on_header_value with data[162:191]
+2025-05-27 22:04:55,142 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:55,142 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:55,142 - python_multipart.multipart - DEBUG - Calling on_part_data with data[195:204]
+2025-05-27 22:04:55,142 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:55,142 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:55,142 - python_multipart.multipart - DEBUG - Calling on_header_field with data[248:267]
+2025-05-27 22:04:55,142 - python_multipart.multipart - DEBUG - Calling on_header_value with data[269:291]
+2025-05-27 22:04:55,142 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:55,142 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:55,143 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:55,143 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:55,143 - python_multipart.multipart - DEBUG - Calling on_header_field with data[339:358]
+2025-05-27 22:04:55,143 - python_multipart.multipart - DEBUG - Calling on_header_value with data[360:389]
+2025-05-27 22:04:55,143 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:55,143 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:55,143 - python_multipart.multipart - DEBUG - Calling on_part_data with data[393:399]
+2025-05-27 22:04:55,143 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:55,143 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:55,143 - python_multipart.multipart - DEBUG - Calling on_header_field with data[443:462]
+2025-05-27 22:04:55,144 - python_multipart.multipart - DEBUG - Calling on_header_value with data[464:502]
+2025-05-27 22:04:55,144 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:55,144 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:55,144 - python_multipart.multipart - DEBUG - Calling on_part_data with data[506:508]
+2025-05-27 22:04:55,144 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:55,144 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:55,144 - python_multipart.multipart - DEBUG - Calling on_header_field with data[552:571]
+2025-05-27 22:04:55,144 - python_multipart.multipart - DEBUG - Calling on_header_value with data[573:601]
+2025-05-27 22:04:55,144 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:55,144 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:55,145 - python_multipart.multipart - DEBUG - Calling on_part_data with data[605:606]
+2025-05-27 22:04:55,145 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:55,145 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:55,145 - python_multipart.multipart - DEBUG - Calling on_header_field with data[650:669]
+2025-05-27 22:04:55,145 - python_multipart.multipart - DEBUG - Calling on_header_value with data[671:694]
+2025-05-27 22:04:55,145 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:55,145 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:55,145 - python_multipart.multipart - DEBUG - Calling on_part_data with data[698:704]
+2025-05-27 22:04:55,145 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:55,145 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:04:55,145 - python_multipart.multipart - DEBUG - Calling on_header_field with data[748:767]
+2025-05-27 22:04:55,146 - python_multipart.multipart - DEBUG - Calling on_header_value with data[769:796]
+2025-05-27 22:04:55,146 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:04:55,146 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:04:55,146 - python_multipart.multipart - DEBUG - Calling on_part_data with data[800:801]
+2025-05-27 22:04:55,146 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:04:55,146 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-05-27 22:06:19,371 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:06:19,371 - python_multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-05-27 22:06:19,371 - python_multipart.multipart - DEBUG - Calling on_header_value with data[63:86]
+2025-05-27 22:06:19,371 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:06:19,372 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:06:19,372 - python_multipart.multipart - DEBUG - Calling on_part_data with data[90:97]
+2025-05-27 22:06:19,372 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:06:19,372 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:06:19,372 - python_multipart.multipart - DEBUG - Calling on_header_field with data[141:160]
+2025-05-27 22:06:19,372 - python_multipart.multipart - DEBUG - Calling on_header_value with data[162:191]
+2025-05-27 22:06:19,372 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:06:19,372 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:06:19,372 - python_multipart.multipart - DEBUG - Calling on_part_data with data[195:204]
+2025-05-27 22:06:19,372 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:06:19,372 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:06:19,373 - python_multipart.multipart - DEBUG - Calling on_header_field with data[248:267]
+2025-05-27 22:06:19,373 - python_multipart.multipart - DEBUG - Calling on_header_value with data[269:291]
+2025-05-27 22:06:19,373 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:06:19,373 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:06:19,373 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:06:19,373 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:06:19,373 - python_multipart.multipart - DEBUG - Calling on_header_field with data[339:358]
+2025-05-27 22:06:19,373 - python_multipart.multipart - DEBUG - Calling on_header_value with data[360:389]
+2025-05-27 22:06:19,373 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:06:19,374 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:06:19,374 - python_multipart.multipart - DEBUG - Calling on_part_data with data[393:399]
+2025-05-27 22:06:19,374 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:06:19,374 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:06:19,374 - python_multipart.multipart - DEBUG - Calling on_header_field with data[443:462]
+2025-05-27 22:06:19,374 - python_multipart.multipart - DEBUG - Calling on_header_value with data[464:502]
+2025-05-27 22:06:19,374 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:06:19,374 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:06:19,375 - python_multipart.multipart - DEBUG - Calling on_part_data with data[506:508]
+2025-05-27 22:06:19,375 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:06:19,375 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:06:19,375 - python_multipart.multipart - DEBUG - Calling on_header_field with data[552:571]
+2025-05-27 22:06:19,375 - python_multipart.multipart - DEBUG - Calling on_header_value with data[573:601]
+2025-05-27 22:06:19,375 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:06:19,375 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:06:19,375 - python_multipart.multipart - DEBUG - Calling on_part_data with data[605:606]
+2025-05-27 22:06:19,375 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:06:19,375 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:06:19,375 - python_multipart.multipart - DEBUG - Calling on_header_field with data[650:669]
+2025-05-27 22:06:19,375 - python_multipart.multipart - DEBUG - Calling on_header_value with data[671:694]
+2025-05-27 22:06:19,376 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:06:19,376 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:06:19,376 - python_multipart.multipart - DEBUG - Calling on_part_data with data[698:704]
+2025-05-27 22:06:19,376 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:06:19,376 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:06:19,376 - python_multipart.multipart - DEBUG - Calling on_header_field with data[748:767]
+2025-05-27 22:06:19,376 - python_multipart.multipart - DEBUG - Calling on_header_value with data[769:796]
+2025-05-27 22:06:19,376 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:06:19,376 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:06:19,376 - python_multipart.multipart - DEBUG - Calling on_part_data with data[800:801]
+2025-05-27 22:06:19,376 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:06:19,377 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-05-27 22:16:13,805 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:16:13,805 - python_multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-05-27 22:16:13,805 - python_multipart.multipart - DEBUG - Calling on_header_value with data[63:89]
+2025-05-27 22:16:13,805 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:16:13,805 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:16:13,805 - python_multipart.multipart - DEBUG - Calling on_part_data with data[93:97]
+2025-05-27 22:16:13,805 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:16:13,806 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-27 22:16:13,806 - python_multipart.multipart - DEBUG - Calling on_header_field with data[141:160]
+2025-05-27 22:16:13,806 - python_multipart.multipart - DEBUG - Calling on_header_value with data[162:188]
+2025-05-27 22:16:13,806 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-27 22:16:13,806 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-27 22:16:13,806 - python_multipart.multipart - DEBUG - Calling on_part_data with data[192:209]
+2025-05-27 22:16:13,806 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-27 22:16:13,806 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-05-27 22:16:13,809 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-27 22:16:13,810 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '<unknown>'
+2025-05-27 22:16:13,810 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround

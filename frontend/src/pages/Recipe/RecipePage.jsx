@@ -1,21 +1,23 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetRecipeQuery, useUpdateRecipeMutation } from '../../api/recipeApi';
+import { useGetRecipeQuery, useUpdateRecipeMutation, useDeleteRecipeMutation } from '../../api/recipeApi';
 import { useGetUserQuery } from '../../api/userApi';
 import { selectCurrentUser } from '../../store/slices/authSlice';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import './RecipePage.css';
 
 function RecipePage() {
+  let navigate = useNavigate();
   const { recipe_id } = useParams();
   const { data: recipe, isLoading, isError } = useGetRecipeQuery(recipe_id);
   const { data: author } = useGetUserQuery(recipe?.author_id, { skip: !recipe?.author_id });
   const currentUser = useSelector(selectCurrentUser);
   const [isEditing, setIsEditing] = useState(false);
   const [updateRecipe] = useUpdateRecipeMutation();
-
+  const [deleteRecipe] = useDeleteRecipeMutation();
   // Состояние для редактирования
   const [editedRecipe, setEditedRecipe] = useState({
     title: '',
@@ -94,6 +96,16 @@ function RecipePage() {
       difficulty: recipe.difficulty,
     });
   };
+  const handleDeleteClick = async () => {
+      if (window.confirm('Вы уверены, что хотите удалить данный рецепт? Это действие нельзя отменить.')) {
+        try {
+          await deleteRecipe(recipe.id).unwrap();
+          navigate('/', { replace: true })
+        } catch (error) {
+          console.error('Ошибка при удалении рецепта:', error);
+        }
+      }
+    };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -195,6 +207,11 @@ function RecipePage() {
                 {isAuthor && !isEditing && (
                   <button onClick={handleEditClick} className="edit-recipe-button">
                     Редактировать рецепт
+                  </button>
+                )}
+                {isAuthor && (
+                <button onClick={handleDeleteClick} className="delete-recipe-button">
+                    Удалить рецепт
                   </button>
                 )}
               </div>

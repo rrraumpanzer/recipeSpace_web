@@ -24,7 +24,7 @@ recipe_router = APIRouter(
 
 @recipe_router.post("/create", response_model=RecipeInDB, status_code=status.HTTP_201_CREATED)
 async def create_new_recipe(
-    recipe: RecipeCreate, 
+    recipe: RecipeCreate = Depends(RecipeCreate.as_form), 
     current_user: User = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):

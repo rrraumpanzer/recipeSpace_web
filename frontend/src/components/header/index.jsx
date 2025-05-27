@@ -35,7 +35,9 @@ function Header() {
     <header className="header">
       <div className="header-content">
         <h1><Link to={`/`} className="site-title">recipeSpace</Link></h1>
-        
+        {isLoggedIn && currentUser && (
+            <Link to={`/recipe/create`} className="create-recipe-link">Создать рецепт</Link>
+        )}
         <div className="user-section">
           {isLoggedIn && currentUser && (
             <Link to={`/user/${currentUser.id}`} className="username-link">
@@ -43,6 +45,7 @@ function Header() {
             </Link>
           )}
         </div>
+
         <div className='auth-section'>
           <button 
             className="login-button"
