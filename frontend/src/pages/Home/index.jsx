@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useGetRecipesQuery } from '../../api/recipeApi';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import '../../components/header/Header.css'
 
@@ -9,10 +10,15 @@ function Home() {
   const [recipes, setRecipes] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef(null);
+  const navigate = useNavigate();
   
   // Получаем данные с помощью RTK Query
   const { data, isLoading, isFetching } = useGetRecipesQuery({ skip, limit });
   
+  const handleRecipeClick = (recipeId) => {
+    navigate(`/recipe/${recipeId}`);
+  };
+
   // Объединяем новые рецепты с уже загруженными
   useEffect(() => {
     if (data) {
@@ -119,7 +125,12 @@ function Home() {
       <div className="main-content">
         <div className="recipe-grid">
           {recipes.map((recipe) => (
-            <div key={recipe.id} className="recipe-card">
+            <div 
+            key={recipe.id} 
+            className="recipe-card"
+            onClick={()=>handleRecipeClick(recipe.id)}
+            style={{cursor: 'pointer'}}
+            >
             <div className="recipe-image">
               <img 
                 src={getImageUrl(recipe.image)} 
