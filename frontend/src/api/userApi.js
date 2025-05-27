@@ -56,20 +56,19 @@ export const userApi = createApi({
   
   // Обновление данных пользователя
   updateUser: builder.mutation({
-    query: (userData) => ({
-      url: '/update',
+    query: ({userId, userData}) => ({
+      url: `/update/${userId}`,
       method: 'PATCH',
       body: userData,
     }),
   }),
   
-  // Загрузка аватара
   uploadAvatar: builder.mutation({
-    query: (file) => {
+    query: ({ userId, file }) => {
       const formData = new FormData();
       formData.append('file', file);
       return {
-        url: '/upload-avatar',
+        url: `/upload-avatar/${userId}`,
         method: 'POST',
         body: formData,
       };
