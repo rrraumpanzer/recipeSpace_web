@@ -41,8 +41,8 @@ const AuthModal = ({ onLoginSuccess }) => {
       dispatch(setUser(userData));
       // Если мы успешно получили данные пользователя и были в процессе логина, закрываем модальное окно
       if (isModalOpen) {
-        dispatch(closeModal());
-        onLoginSuccess?.();
+        
+        onLoginSuccess?.(dispatch(closeModal()));
       }
     }
   }, [isSuccess, userData, dispatch, isModalOpen, onLoginSuccess]);

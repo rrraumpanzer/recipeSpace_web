@@ -19,12 +19,14 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     openModal: (state) => {
+      console.log("Модальное окно должно быть открыто")
       state.isModalOpen = true;
       // Сбрасываем форму при открытии
       state.formData = initialState.formData;
       state.error = '';
     },
     closeModal: (state) => {
+      console.log("Модальное окно должно быть закрыто")
       state.isModalOpen = false;
     },
     toggleAuthMode: (state) => {
@@ -47,6 +49,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.token = null;
       state.currentUser = null;
+      state.isLoginForm = true; // Сбрасываем в режим входа
       localStorage.removeItem('token');
       state.isModalOpen = false;
     },
@@ -59,9 +62,9 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
   builder
     .addMatcher(
-      userApi.endpoints.loginUser.matchPending,
-      (state) => {
-          state.error = '';
+      userApi.endpoints.loginUser.matchFulfilled,
+      (state, { payload }) => {
+          state.isModalOpen = false;
       }
     )
     .addMatcher(

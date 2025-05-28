@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { openModal, logout, selectIsLoggedIn, selectCurrentUser } from '../../store/slices/authSlice';
+import { openModal, logout, selectIsLoggedIn, selectCurrentUser, selectToken, setUser } from '../../store/slices/authSlice';
 import { useGetMeQuery } from '../../api/userApi';
 import AuthModal from '../auth/AuthModal';
 import './Header.css';
@@ -10,22 +10,20 @@ function Header() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const currentUser = useSelector(selectCurrentUser);
-  
+  const token = useSelector(selectToken);
+
   // Получаем данные текущего пользователя при монтировании
-  const { data: userData, refetch } = useGetMeQuery(undefined, {
-    skip: !isLoggedIn,
+  const { data: userData } = useGetMeQuery(undefined, {
+    skip: !token,
   });
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      refetch();
-    }
-  }, [isLoggedIn, refetch]);
-
   const handleAuthClick = () => {
+    console.log(token);
+    console.log(isLoggedIn);
     if (isLoggedIn) {
       dispatch(logout());
-      dispatch(closeModal());
+      // Принудительно сбрасываем данные пользователя
+      dispatch(setUser(null));
     } else {
       dispatch(openModal());
     }

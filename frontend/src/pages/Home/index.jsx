@@ -18,7 +18,11 @@ function Home() {
   const handleRecipeClick = (recipeId) => {
     navigate(`/recipe/${recipeId}`);
   };
-
+  useEffect(() => {
+    setRecipes([]);
+    setSkip(0);
+    setHasMore(true);
+  }, []);
   // Объединяем новые рецепты с уже загруженными
   useEffect(() => {
     if (data) {
