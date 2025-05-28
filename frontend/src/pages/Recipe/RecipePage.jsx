@@ -45,20 +45,21 @@ function RecipePage() {
   });
 
   // Инициализация состояния редактирования при загрузке рецепта
-  useState(() => {
-    if (recipe) {
-      setEditedRecipe({
-        title: recipe.title,
-        description: recipe.description,
-        tags: [...recipe.tags],
-        ingredients: [...recipe.ingredients],
-        steps: recipe.steps,
-        cooking_time_minutes: recipe.cooking_time_minutes,
-        difficulty: recipe.difficulty,
-      });
-      setLikesCount(recipe.likes_count || 0);
-    }
-  });
+  useEffect(() => {
+  if (recipe) {
+    setEditedRecipe({
+      title: recipe.title,
+      description: recipe.description,
+      tags: [...recipe.tags],
+      ingredients: [...recipe.ingredients],
+      steps: recipe.steps,
+      cooking_time_minutes: recipe.cooking_time_minutes,
+      difficulty: recipe.difficulty,
+    });
+    setLikesCount(recipe.likes_count || 0);
+  }
+}, [recipe]);
+
   useEffect(() => {
     if (isFavoriteData !== undefined) {
       setIsFavorite(isFavoriteData);
@@ -156,6 +157,12 @@ function RecipePage() {
     const newIngredients = [...editedRecipe.ingredients];
     newIngredients[index] = value;
     setEditedRecipe(prev => ({ ...prev, ingredients: newIngredients }));
+  };
+
+  const handleTagsChange = (index, value) => {
+    const newTags = [...editedRecipe.tags];
+    newTags[index] = value;
+    setEditedRecipe(prev => ({ ...prev, tags: newTags }));
   };
 
   const isAuthor = currentUser && recipe.author_id === currentUser.id;
@@ -349,6 +356,45 @@ function RecipePage() {
               ))}
             </ul>
           )}
+          
+          
+          {isEditing ? (
+          <div className="recipe-tags">
+            <h2>Теги</h2>
+              <div className="tags-edit">
+                {(editedRecipe.tags || ['unknown']).map((tag, index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    value={tag}
+                    onChange={(e) => handleTagsChange(index, e.target.value)}
+                  />
+                ))}
+                <div className="tags-buttons">
+                  <button 
+                    onClick={() => setEditedRecipe(prev => ({
+                      ...prev,
+                      tags: [...prev.tags, '']
+                    }))}
+                  >
+                    +
+                  </button>
+                  <button 
+                    onClick={() => setEditedRecipe(prev => ({
+                      ...prev,
+                      tags: prev.tags.length > 1 
+                        ? prev.tags.slice(0, -1) 
+                        : prev.tags
+                    }))}
+                    disabled={(editedRecipe.tags || ['unknown']).length <= 1}
+                  >
+                    -
+                  </button>
+                </div>
+              </div>
+          </div>
+          ) : (<>
+          </>)}
           
           <h2>Инструкции</h2>
           {isEditing ? (
