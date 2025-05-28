@@ -140,6 +140,7 @@ export const {
   useDeleteUserMutation,
   useDeleteFromUserFavoritesMutation,
   useAddToUserFavoritesMutation,
-  useGetCreatedRecipesQuery
+  useGetCreatedRecipesQuery,
+  useGetFavoriteRecipesQuery
 } = userApi;
 

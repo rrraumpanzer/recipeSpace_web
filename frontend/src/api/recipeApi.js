@@ -65,7 +65,6 @@ export const recipeApi = createApi({
       query: ({ recipeId, file }) => {
         const formData = new FormData();
         formData.append('file', file);
-        
         return {
           url: `/upload-image/${recipeId}`,
           method: 'POST',

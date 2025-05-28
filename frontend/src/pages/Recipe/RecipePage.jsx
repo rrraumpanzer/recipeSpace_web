@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetRecipeQuery, useUpdateRecipeMutation, useDeleteRecipeMutation } from '../../api/recipeApi';
-import { useGetUserQuery } from '../../api/userApi';
+import { useGetRecipeQuery, useUpdateRecipeMutation, useDeleteRecipeMutation, useUploadRecipeImageMutation } from '../../api/recipeApi';
+import { useGetUserQuery, useUploadAvatarMutation } from '../../api/userApi';
 import { selectCurrentUser } from '../../store/slices/authSlice';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -16,8 +16,11 @@ function RecipePage() {
   const { data: author } = useGetUserQuery(recipe?.author_id, { skip: !recipe?.author_id });
   const currentUser = useSelector(selectCurrentUser);
   const [isEditing, setIsEditing] = useState(false);
+  const [uploadRecipeImage] = useUploadRecipeImageMutation();
   const [updateRecipe] = useUpdateRecipeMutation();
   const [deleteRecipe] = useDeleteRecipeMutation();
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
   // Состояние для редактирования
   const [editedRecipe, setEditedRecipe] = useState({
     title: '',
@@ -72,17 +75,37 @@ function RecipePage() {
     setIsEditing(true);
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSaveClick = async () => {
-        try {
-          await updateRecipe({
-            recipeId: recipe_id,
-            recipeData: editedRecipe
-          }).unwrap();
-          setIsEditing(false);
-        } catch (error) {
-          console.error('Ошибка при обновлении рецепта:', error);
-        }
-    };
+    try {
+      if (selectedFile) {
+        await uploadRecipeImage({ 
+          recipeId: recipe_id, 
+          file: selectedFile 
+        }).unwrap();
+      }
+      
+      await updateRecipe({
+        recipeId: recipe_id,
+        recipeData: editedRecipe
+      }).unwrap();
+      
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Ошибка при обновлении рецепта:', error);
+    }
+  };
 
   const handleCancelClick = () => {
     setIsEditing(false);
@@ -106,7 +129,6 @@ function RecipePage() {
         }
       }
     };
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditedRecipe(prev => ({ ...prev, [name]: value }));
@@ -198,6 +220,20 @@ function RecipePage() {
               e.target.src = '/src/assets/recipeSpaceIco.svg';
             }}
           />
+          {isEditing && (
+            <div className="recipe-image-upload">
+              <input
+                type="file"
+                id="recipe-image-upload"
+                accept="image/*"
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+              />
+              <label htmlFor="recipe-image-upload" className="upload-button">
+                Загрузить новую обложку
+              </label>
+            </div>
+          )}
             {author && (
               <div className="recipe-author">
                 <Link to={`/user/${author.id}`} className="username-link">

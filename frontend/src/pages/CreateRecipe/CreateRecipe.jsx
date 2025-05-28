@@ -10,7 +10,6 @@ function CreateRecipe() {
   const navigate = useNavigate();
   const currentUser = useSelector(selectCurrentUser);
   const [createRecipe] = useCreateRecipeMutation();
-
   const [newRecipe, setNewRecipe] = useState({
     title: '',
     description: '',
@@ -58,7 +57,7 @@ function CreateRecipe() {
   return (
     <div className="recipe-page">
       <form onSubmit={handleSubmit}>
-        <div className="recipe-header">
+        <div className="recipe--page-header">
           <input
             type="text"
             name="title"
@@ -111,7 +110,7 @@ function CreateRecipe() {
         <div className="recipe-content">
           <div className="recipe-image-and-author">
             <div className="recipe-image-placeholder">
-              <span>Изображение рецепта (можно добавить позже)</span>
+              <span>Изображение рецепта можно добавить в окне редактирования</span>
             </div>
             <div className="recipe-author">
               <span>Автор: {currentUser.username}</span>

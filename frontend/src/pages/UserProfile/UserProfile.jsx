@@ -1,12 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useGetUserQuery, useUpdateUserMutation, useUploadAvatarMutation, useDeleteUserMutation } from '../../api/userApi';
+import { 
+  useGetUserQuery, 
+  useUpdateUserMutation,
+  useUploadAvatarMutation, 
+  useDeleteUserMutation,
+  useGetCreatedRecipesQuery,
+  useGetFavoriteRecipesQuery
+} from '../../api/userApi';
 import { selectCurrentUser } from '../../store/slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import './UserProfile.css';
 import { logout } from '../../store/slices/authSlice';
 const getImageUrl = (imagePath) => {
-  if (!imagePath) return '/src/assets/react.svg';
+  if (!imagePath) return '/src/assets/recipeSpaceIco.svg';
     
   // Если путь уже абсолютный (начинается с http), возвращаем как есть
   if (imagePath.startsWith('http')) return imagePath;
@@ -26,6 +33,7 @@ function UserProfile() {
   });
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  const [activeTab, setActiveTab] = useState('created'); // 'created' или 'favorites'
 
   const { user_id } = useParams();
   const currentUser = useSelector(selectCurrentUser);
@@ -45,6 +53,18 @@ function UserProfile() {
   } = useGetUserQuery(profileToLoadId, {
     skip: !profileToLoadId
   });
+
+  const { 
+    data: createdRecipes, 
+    isLoading: isLoadingCreated,
+    error: errorCreated
+  } = useGetCreatedRecipesQuery({ userId: profileToLoadId });
+
+  const { 
+    data: favoriteRecipes, 
+    isLoading: isLoadingFavorites,
+    error: errorFavorites
+  } = useGetFavoriteRecipesQuery({ userId: profileToLoadId });
 
   const [updateUser] = useUpdateUserMutation();
   const [uploadAvatar] = useUploadAvatarMutation();
@@ -113,6 +133,35 @@ function UserProfile() {
     }
   };
 
+  const handleRecipeClick = (recipeId) => {
+    navigate(`/recipe/${recipeId}`);
+  };
+  
+  const renderIngredientsPreview = (ingredients) => {
+    if (!ingredients || !ingredients.length) return null;
+    return (
+      <ul className="ingredients-preview">
+        {ingredients.slice(0, 3).map((ingredient, index) => (
+          <li key={index}>{ingredient.name}</li>
+        ))}
+        {ingredients.length > 3 && <li>и еще {ingredients.length - 3}...</li>}
+      </ul>
+    );
+  };
+
+  const renderDifficulty = (difficulty) => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      stars.push(
+        <img 
+          key={i} 
+          src={i < difficulty ? '../src/assets/star_full1.svg' : '../src/assets/star_full.svg'} 
+          alt={i < difficulty ? 'filled star' : 'empty star'}
+        />
+      );
+    }
+    return <div className="recipe-difficulty">{stars}</div>;
+  };
   if (isLoading) return <div>Загрузка...</div>;
   if (error) return <div>Ошибка: {error.message}</div>;
   if (!userData) return <div>Пользователь не найден</div>;
@@ -193,6 +242,111 @@ function UserProfile() {
           )}
         </div>
       )}
+
+      <div className="recipes-tabs">
+        <button 
+          className={activeTab === 'created' ? 'active' : ''}
+          onClick={() => setActiveTab('created')}
+        >
+          Созданные рецепты
+        </button>
+        <button 
+          className={activeTab === 'favorites' ? 'active' : ''}
+          onClick={() => setActiveTab('favorites')}
+        >
+          Избранные рецепты
+        </button>
+      </div>
+
+      <div className="recipes-content">
+        {activeTab === 'created' ? (
+          <div className="profile-recipes-grid">
+            {isLoadingCreated ? (
+              <div>Загрузка созданных рецептов...</div>
+            ) : errorCreated ? (
+              <div>Ошибка загрузки созданных рецептов</div>
+            ) : createdRecipes?.length > 0 ? (
+              createdRecipes.map((recipe) => (
+                <div 
+                  key={recipe.id} 
+                  className="recipe-card"
+                  onClick={() => handleRecipeClick(recipe.id)}
+                  style={{cursor: 'pointer'}}
+                >
+                  <div className="recipe-image">
+                    <img 
+                      src={getImageUrl(recipe.image)} 
+                      alt={recipe.title} 
+                      onError={(e) => {
+                        e.target.src = '/src/assets/recipeSpaceIco.svg';
+                      }}
+                    />
+                  </div>
+                  <div className='recipe-header'>
+                    {renderDifficulty(recipe.difficulty)}
+                    <div className='like-button'>
+                      <img src='/src/assets/heart.svg' alt="Лайки" />
+                      <span>{recipe.likes_count || 0}</span>
+                    </div>
+                  </div>
+                  <div className='recipe-title'>
+                    <h3>{recipe.title}</h3>
+                  </div>
+                  <div className="recipe-info">
+                    <p>{recipe.description}</p>
+                    <p>Время приготовления: {recipe.cooking_time_minutes} мин</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>Пользователь пока не создал ни одного рецепта</p>
+            )}
+          </div>
+        ) : (
+          <div className="recipes-grid">
+            {isLoadingFavorites ? (
+              <div>Загрузка избранных рецептов...</div>
+            ) : errorFavorites ? (
+              <div>Ошибка загрузки избранных рецептов</div>
+            ) : favoriteRecipes?.length > 0 ? (
+              favoriteRecipes.map((recipe) => (
+                <div 
+                  key={recipe.id} 
+                  className="recipe-card"
+                  onClick={() => handleRecipeClick(recipe.id)}
+                  style={{cursor: 'pointer'}}
+                >
+                  <div className="recipe-image">
+                    <img 
+                      src={getImageUrl(recipe.image)} 
+                      alt={recipe.title} 
+                      onError={(e) => {
+                        e.target.src = '/src/assets/recipeSpaceIco.svg';
+                      }}
+                    />
+                  </div>
+                  <div className='recipe-header'>
+                    {renderDifficulty(recipe.difficulty)}
+                    <div className='like-button'>
+                      <img src='/src/assets/heart.svg' alt="Лайки" />
+                      <span>{recipe.likes_count || 0}</span>
+                    </div>
+                  </div>
+                  <div className='recipe-title'>
+                    <h3>{recipe.title}</h3>
+                  </div>
+                  <div className="recipe-info">
+                    <p>{recipe.description}</p>
+                    <p>Время приготовления: {recipe.cooking_time_minutes} мин</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>Пользователь пока не добавил рецептов в избранное</p>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
