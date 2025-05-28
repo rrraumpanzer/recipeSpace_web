@@ -252,19 +252,50 @@ async def delete_recipe(
 async def fetch_recipes(
     skip: int = Query(0, ge=0),
     limit: int = Query(10, ge=1, le=100),
+    tags: list[str] = Query(None, description="Фильтрация по тегам"),
+    max_cooking_time: int = Query(None, ge=1, description="Максимальное время приготовления в минутах"),
+    min_cooking_time: int = Query(None, ge=1, description="Минимальное время приготовления в минутах"),
+    difficulty: int = Query(None, ge=1, le=5, description="Уровень сложности (1-5)"),
+    ingredients: list[str] = Query(None, description="Фильтрация по ингредиентам"),
     db: Session = Depends(get_db),
 ):
     """
-    Получение списка рецептов с пагинацией
+    Получение списка рецептов с пагинацией и фильтрацией
     
     Аргументы:
         skip: Сколько рецептов пропустить
         limit: Сколько рецептов вернуть (максимум 100)
-        db: Сессия
+        tags: Фильтрация по тегам (массив строк)
+        max_cooking_time: Максимальное время приготовления в минутах
+        min_cooking_time: Минимальное время приготовления в минутах
+        difficulty: Уровень сложности (1-5)
+        ingredients: Фильтрация по ингредиентам (массив строк)
+        db: Сессия базы данных
     
     Возвращает:
-        Список рецептов
+        Список отфильтрованных рецептов
     """
-    recipes = db.query(Recipe).offset(skip).limit(limit).all()
+    query = db.query(Recipe)
+    
+    # Фильтрация по тегам (если хотя бы один тег совпадает)
+    if tags:
+        query = query.filter(Recipe.tags.overlap(tags))
+    
+    # Фильтрация по времени приготовления
+    if max_cooking_time:
+        query = query.filter(Recipe.cooking_time_minutes <= max_cooking_time)
+    if min_cooking_time:
+        query = query.filter(Recipe.cooking_time_minutes >= min_cooking_time)
+    
+    # Фильтрация по сложности
+    if difficulty:
+        query = query.filter(Recipe.difficulty == difficulty)
+    
+    # Фильтрация по ингредиентам (если все указанные ингредиенты присутствуют)
+    if ingredients:
+        query = query.filter(Recipe.ingredients.contains(ingredients))
+    
+    # Применение пагинации
+    recipes = query.offset(skip).limit(limit).all()
     return recipes
 
