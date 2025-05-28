@@ -23,16 +23,29 @@ class RecipeCreate(RecipeBase):
     @classmethod
     def as_form(
         cls,
-        title: str = Form(...),
-        description: str = Form(...),
-        tags: List[str] = Form(...),
-        ingredients: List[str] = Form(...),
-        cooking_time_minutes: int = Form(...),
-        difficulty: int = Form(...),
-        steps: str = Form(...),
-        author_id: int = Form(...)
+        title: str = Form(None),
+        description: str = Form(None),
+        tags: str = Form(None),  # Принимаем как строку JSON
+        ingredients: str = Form(None),  # Принимаем как строку JSON
+        cooking_time_minutes: int = Form(None),
+        difficulty: int = Form(None),
+        steps: str = Form(None),
+        author_id: int = Form(None)
     ):
-        return cls(title=title, description=description, tags=tags, ingredients=ingredients, cooking_time_minutes=cooking_time_minutes, difficulty=difficulty, steps=steps, author_id=author_id)
+        # Парсим JSON строки в списки
+        tags_list = json.loads(tags) if tags else None
+        ingredients_list = json.loads(ingredients) if ingredients else None
+
+        return cls(
+            title=title, 
+            description=description, 
+            tags=tags_list, 
+            ingredients=ingredients_list, 
+            cooking_time_minutes=cooking_time_minutes, 
+            difficulty=difficulty, 
+            steps=steps, 
+            author_id=author_id
+            )
     pass
 
 
@@ -43,7 +56,6 @@ class RecipeUpdate(BaseModel):
     ingredients: Optional[List[str]] = None
     cooking_time_minutes: Optional[int] = None
     difficulty: Optional[int] = None
-    image: Optional[str] = None
     steps: Optional[str] = None
 
     @classmethod
@@ -56,7 +68,6 @@ class RecipeUpdate(BaseModel):
         cooking_time_minutes: int = Form(None),
         difficulty: int = Form(None),
         steps: str = Form(None),
-        image: str = Form(None)
     ):
         # Парсим JSON строки в списки
         tags_list = json.loads(tags) if tags else None
@@ -70,8 +81,17 @@ class RecipeUpdate(BaseModel):
             cooking_time_minutes=cooking_time_minutes,
             difficulty=difficulty,
             steps=steps,
-            image=image
         )
+
+class RecipeFilter(BaseModel):
+    skip: int
+    limit: int
+    tags: list[str]
+    max_cooking_time: int
+    min_cooking_time: int
+    difficulty: int
+    ingredients: list[str]
+
 
 
 class RecipeInDB(RecipeBase):

@@ -367,7 +367,7 @@ function RecipePage() {
                     key={index}
                     type="text"
                     value={tag}
-                    onChange={(e) => handleTagsChange(index, e.target.value)}
+                    onChange={(e) => handleTagsChange(index, (e.target.value.toLowerCase()).trim())}
                   />
                 ))}
                 <div className="tags-buttons">

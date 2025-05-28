@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, ARRAY, SmallInteger
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, SmallInteger
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from app.database.connection import Base
+from sqlalchemy.dialects.postgresql import ARRAY
 class Recipe(Base):
     __tablename__ = 'recipes'
     

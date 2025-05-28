@@ -50,7 +50,7 @@ const FilterSidebar = ({ onFilterChange }) => {
 
   const handleAddIngredient = () => {
     if (ingredientInput.trim()) {
-      const newIngredients = [...ingredients, ingredientInput.trim()];
+      const newIngredients = [...ingredients, (ingredientInput.toLowerCase()).trim()];
       setIngredients(newIngredients);
       setIngredientInput('');
       onFilterChange({ tags, timeRange, difficulty, ingredients: newIngredients });
@@ -92,56 +92,56 @@ const FilterSidebar = ({ onFilterChange }) => {
             <input 
               type="checkbox" 
               checked={tags.firstCourse} 
-              onChange={() => handleTagChange('firstCourse')} 
+              onChange={() => handleTagChange('первое блюдо')} 
             /> Первое блюдо
           </label>
           <label>
             <input 
               type="checkbox" 
               checked={tags.secondCourse} 
-              onChange={() => handleTagChange('secondCourse')} 
+              onChange={() => handleTagChange('второе блюдо')} 
             /> Второе блюдо
           </label>
           <label>
             <input 
               type="checkbox" 
               checked={tags.breakfast} 
-              onChange={() => handleTagChange('breakfast')} 
+              onChange={() => handleTagChange('завтрак')} 
             /> Завтрак
           </label>
           <label>
             <input 
               type="checkbox" 
               checked={tags.salad} 
-              onChange={() => handleTagChange('salad')} 
+              onChange={() => handleTagChange('салат')} 
             /> Салат
           </label>
           <label>
             <input 
               type="checkbox" 
               checked={tags.dessert} 
-              onChange={() => handleTagChange('dessert')} 
+              onChange={() => handleTagChange('десерт')} 
             /> Десерт
           </label>
           <label>
             <input 
               type="checkbox" 
               checked={tags.fasting} 
-              onChange={() => handleTagChange('fasting')} 
+              onChange={() => handleTagChange('востное')} 
             /> Постное
           </label>
           <label>
             <input 
               type="checkbox" 
               checked={tags.vegetarian} 
-              onChange={() => handleTagChange('vegetarian')} 
+              onChange={() => handleTagChange('вегетарианское')} 
             /> Вегетарианское
           </label>
           <label>
             <input 
               type="checkbox" 
               checked={tags.drink} 
-              onChange={() => handleTagChange('drink')} 
+              onChange={() => handleTagChange('напиток')} 
             /> Напиток
           </label>
 
