@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import List, Optional
 from fastapi import Form
 from pydantic import BaseModel
+import json
 
 class RecipeBase(BaseModel):
     title: str
@@ -48,15 +49,29 @@ class RecipeUpdate(BaseModel):
     @classmethod
     def as_form(
         cls,
-        title: str = Form(...),
-        description: str = Form(...),
-        tags: List[str] = Form(...),
-        ingredients: List[str] = Form(...),
-        cooking_time_minutes: int = Form(...),
-        difficulty: int = Form(...),
-        steps: str = Form(...) 
+        title: str = Form(None),
+        description: str = Form(None),
+        tags: str = Form(None),  # Принимаем как строку JSON
+        ingredients: str = Form(None),  # Принимаем как строку JSON
+        cooking_time_minutes: int = Form(None),
+        difficulty: int = Form(None),
+        steps: str = Form(None),
+        image: str = Form(None)
     ):
-        return cls(title=title, description=description, tags=tags, ingredients=ingredients, cooking_time_minutes=cooking_time_minutes, difficulty=difficulty, steps=steps)
+        # Парсим JSON строки в списки
+        tags_list = json.loads(tags) if tags else None
+        ingredients_list = json.loads(ingredients) if ingredients else None
+        
+        return cls(
+            title=title,
+            description=description,
+            tags=tags_list,
+            ingredients=ingredients_list,
+            cooking_time_minutes=cooking_time_minutes,
+            difficulty=difficulty,
+            steps=steps,
+            image=image
+        )
 
 
 class RecipeInDB(RecipeBase):

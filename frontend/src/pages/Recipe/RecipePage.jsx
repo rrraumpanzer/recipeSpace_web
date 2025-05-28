@@ -50,8 +50,8 @@ function RecipePage() {
     setEditedRecipe({
       title: recipe.title,
       description: recipe.description,
-      tags: [...recipe.tags],
-      ingredients: [...recipe.ingredients],
+      tags: Array.isArray(recipe.tags) ? [...recipe.tags] : [],
+      ingredients: Array.isArray(recipe.ingredients) ? [...recipe.ingredients] : [],
       steps: recipe.steps,
       cooking_time_minutes: recipe.cooking_time_minutes,
       difficulty: recipe.difficulty,
