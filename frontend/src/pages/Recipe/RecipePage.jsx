@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetRecipeQuery, useUpdateRecipeMutation, useDeleteRecipeMutation, useUploadRecipeImageMutation } from '../../api/recipeApi';
-import { useGetUserQuery, useUploadAvatarMutation } from '../../api/userApi';
+import { useGetUserQuery, useAddToUserFavoritesMutation, useDeleteFromUserFavoritesMutation, useGetIsInUserFavoritesQuery } from '../../api/userApi';
 import { selectCurrentUser } from '../../store/slices/authSlice';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -15,12 +15,24 @@ function RecipePage() {
   const { data: recipe, isLoading, isError } = useGetRecipeQuery(recipe_id);
   const { data: author } = useGetUserQuery(recipe?.author_id, { skip: !recipe?.author_id });
   const currentUser = useSelector(selectCurrentUser);
+
   const [isEditing, setIsEditing] = useState(false);
   const [uploadRecipeImage] = useUploadRecipeImageMutation();
   const [updateRecipe] = useUpdateRecipeMutation();
   const [deleteRecipe] = useDeleteRecipeMutation();
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+
+  const [addToFavorites] = useAddToUserFavoritesMutation();
+  const [removeFromFavorites] = useDeleteFromUserFavoritesMutation();
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [likesCount, setLikesCount] = useState(recipe?.likes_count);
+
+  const { data: isFavoriteData, refetch: refetchIsFavorite } = useGetIsInUserFavoritesQuery(
+    { userId: currentUser?.id, recipeId: recipe?.id },
+    { skip: !currentUser || !recipe } // Пропускаем запрос, если нет пользователя или рецепта
+  );
+
   // Состояние для редактирования
   const [editedRecipe, setEditedRecipe] = useState({
     title: '',
@@ -44,8 +56,14 @@ function RecipePage() {
         cooking_time_minutes: recipe.cooking_time_minutes,
         difficulty: recipe.difficulty,
       });
+      setLikesCount(recipe.likes_count || 0);
     }
-  }, [recipe]);
+  });
+  useEffect(() => {
+    if (isFavoriteData !== undefined) {
+      setIsFavorite(isFavoriteData);
+    }
+  }, [isFavoriteData]);
 
   if (isLoading) return <div>Загрузка рецепта...</div>;
   if (isError) return <div>Ошибка загрузки рецепта</div>;
@@ -142,6 +160,30 @@ function RecipePage() {
 
   const isAuthor = currentUser && recipe.author_id === currentUser.id;
 
+  const handleFavoriteClick = async () => {
+    if (!currentUser) return;
+    
+    try {
+      if (isFavorite) {
+        await removeFromFavorites({
+          userId: currentUser.id,
+          recipeId: recipe.id
+        }).unwrap();
+        setLikesCount(prev => prev - 1);
+      } else {
+        await addToFavorites({
+          userId: currentUser.id,
+          recipeId: recipe.id
+        }).unwrap();
+        setLikesCount(prev => prev + 1);
+      }
+      // После изменения избранного, обновляем данные
+      await refetchIsFavorite();
+    } catch (error) {
+      console.error('Ошибка при обновлении избранного:', error);
+    }
+  };
+
   return (
     <div className="recipe-page">
       <div className="recipe-page-header">
@@ -202,9 +244,21 @@ function RecipePage() {
             <span>Время приготовления: {recipe.cooking_time_minutes} мин</span>
           )}
 
-            <div>
-            <span>В избранном: {recipe.likes_count}</span>
-            </div>
+           <div className="favorite-section">
+            <span>{likesCount}</span>
+            {currentUser && (
+              <button 
+                className="favorite-button"
+                onClick={handleFavoriteClick}
+                title={isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'}
+              >
+                <img 
+                  src={isFavorite ? '/src/assets/heart-red.svg' : '/src/assets/heart.svg'} 
+                  alt={isFavorite ? 'В избранном' : 'Не в избранном'}
+                />
+              </button>
+            )}
+          </div>
         </div>
       </div>
 

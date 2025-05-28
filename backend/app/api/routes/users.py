@@ -321,7 +321,7 @@ async def add_to_favorites(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Recipe already in favorites"
         )
-    fav = db.query(FavoriteRecipe).filter(FavoriteRecipe.user_id == user_id & FavoriteRecipe.recipe_id == recipe_id).first()
+    fav = db.query(FavoriteRecipe).filter(FavoriteRecipe.user_id == user_id, FavoriteRecipe.recipe_id == recipe_id).first()
     # Создаем новую запись
     fav = FavoriteRecipe(user_id=user_id, recipe_id=recipe_id)
     db.add(fav)
@@ -403,3 +403,20 @@ async def get_created(
     ).offset(skip).limit(limit).all()
     
     return [item for item in created]
+
+@user_router.get("/{user_id}/favorited/{recipe_id}", response_model=bool)
+async def get_is_in_user_favorites(
+    user_id: int,
+    recipe_id: int,
+    db: Session = Depends(get_db),
+    ):
+    existing = db.query(FavoriteRecipe).filter(
+        FavoriteRecipe.user_id == user_id,
+        FavoriteRecipe.recipe_id == recipe_id
+    ).first()
+    
+    if not existing:
+        print("\033[33m DEBUG: \033[0m" + f"Связь не найдена")
+        return False
+    else:
+        return True

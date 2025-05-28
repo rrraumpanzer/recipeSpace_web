@@ -1,6 +1,13 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useGetRecipesQuery } from '../../api/recipeApi';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { 
+  useAddToUserFavoritesMutation, 
+  useDeleteFromUserFavoritesMutation,
+  useGetIsInUserFavoritesQuery
+} from '../../api/userApi';
+import { selectCurrentUser } from '../../store/slices/authSlice';
 import './Home.css';
 import '../../components/header/Header.css'
 
@@ -11,10 +18,24 @@ function Home() {
   const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef(null);
   const navigate = useNavigate();
-  
+  const currentUser = useSelector(selectCurrentUser);
+
   // Получаем данные с помощью RTK Query
   const { data, isLoading, isFetching } = useGetRecipesQuery({ skip, limit });
   
+  const updateRecipeFavoriteStatus = (recipeId, isFavorite, likesCountChange) => {
+    setRecipes(prev => prev.map(recipe => {
+      if (recipe.id === recipeId) {
+        return {
+          ...recipe,
+          isFavorite,
+          likes_count: recipe.likes_count + likesCountChange
+        };
+      }
+      return recipe;
+    }));
+  };
+
   const handleRecipeClick = (recipeId) => {
     navigate(`/recipe/${recipeId}`);
   };
@@ -129,37 +150,38 @@ function Home() {
       <div className="main-content">
         <div className="recipe-grid">
           {recipes.map((recipe) => (
-            <div 
-            key={recipe.id} 
-            className="recipe-card"
-            onClick={()=>handleRecipeClick(recipe.id)}
-            style={{cursor: 'pointer'}}
-            >
-            <div className="recipe-image">
-              <img 
-                src={getImageUrl(recipe.image)} 
-                alt={recipe.title} 
-                onError={(e) => {
-                  e.target.src = '/src/assets/recipeSpaceIco.svg';
-                }}
-              />
-              </div>
-                <div className='recipe-header'>
-                  {renderDifficulty(recipe.difficulty)}
-                  <div className='like-button'>
-                      <img src='/src/assets/heart.svg'></img>
-                    <span>{recipe.likes_count || 0}</span>
-                  </div>
-                </div>
-                <div className='recipe-title'>
-                  <h3>{recipe.title}</h3>
-                </div>
-                <div className="recipe-info">
-                  <p>{recipe.description}</p>
-                  <p>Время приготовления: {recipe.cooking_time_minutes} мин</p>
-                </div>
-              </div>
-          ))}
+      <div 
+        key={recipe.id} 
+        className="recipe-card"
+        onClick={() => handleRecipeClick(recipe.id)}
+        style={{cursor: 'pointer'}}
+      >
+        <div className="recipe-image">
+          <img 
+            src={getImageUrl(recipe.image)} 
+            alt={recipe.title} 
+            onError={(e) => {
+              e.target.src = '/src/assets/recipeSpaceIco.svg';
+            }}
+          />
+        </div>
+        <div className='recipe-header'>
+          {renderDifficulty(recipe.difficulty)}
+          <RecipeFavoriteButton 
+            recipe={recipe} 
+            currentUser={currentUser}
+            updateRecipeFavoriteStatus={updateRecipeFavoriteStatus}
+          />
+        </div>
+        <div className='recipe-title'>
+          <h3>{recipe.title}</h3>
+        </div>
+        <div className="recipe-info">
+          <p>{recipe.description}</p>
+          <p>Время приготовления: {recipe.cooking_time_minutes} мин</p>
+        </div>
+      </div>
+    ))}
         </div>
         
         {/* Индикатор загрузки */}
@@ -171,6 +193,58 @@ function Home() {
         {/* Сообщение, если больше нет рецептов */}
         {!hasMore && <div>Вы достигли конца списка</div>}
       </div>
+    </div>
+  );
+}
+
+function RecipeFavoriteButton({ recipe, currentUser, updateRecipeFavoriteStatus }) {
+  const [addToFavorites] = useAddToUserFavoritesMutation();
+  const [removeFromFavorites] = useDeleteFromUserFavoritesMutation();
+  
+  const { data: isFavoriteData, refetch: refetchIsFavorite } = useGetIsInUserFavoritesQuery(
+    { userId: currentUser?.id, recipeId: recipe?.id },
+    { skip: !currentUser || !recipe }
+  );
+
+  useEffect(() => {
+    if (isFavoriteData !== undefined && recipe.isFavorite !== isFavoriteData) {
+      updateRecipeFavoriteStatus(recipe.id, isFavoriteData, 0);
+    }
+  }, [isFavoriteData]);
+
+  const handleFavoriteClick = async (e) => {
+    e.stopPropagation(); // Предотвращаем всплытие события клика по карточке
+    
+    if (!currentUser) return;
+    
+    try {
+      if (recipe.isFavorite) {
+        await removeFromFavorites({
+          userId: currentUser.id,
+          recipeId: recipe.id
+        }).unwrap();
+        updateRecipeFavoriteStatus(recipe.id, false, -1);
+      } else {
+        await addToFavorites({
+          userId: currentUser.id,
+          recipeId: recipe.id
+        }).unwrap();
+        updateRecipeFavoriteStatus(recipe.id, true, 1);
+      }
+      await refetchIsFavorite();
+    } catch (error) {
+      console.error('Ошибка при обновлении избранного:', error);
+    }
+  };
+
+  return (
+    <div 
+      className='like-button' 
+      onClick={handleFavoriteClick}
+      title={currentUser ? (recipe.isFavorite ? 'Убрать из избранного' : 'Добавить в избранное') : 'Войдите, чтобы добавить в избранное'}
+    >
+      <img src={recipe.isFavorite ? '/src/assets/heart-red.svg' : '/src/assets/heart.svg'} alt="Избранное" />
+      <span>{recipe.likes_count || 0}</span>
     </div>
   );
 }

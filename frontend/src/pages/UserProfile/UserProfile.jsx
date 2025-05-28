@@ -12,6 +12,7 @@ import { selectCurrentUser } from '../../store/slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import './UserProfile.css';
 import { logout } from '../../store/slices/authSlice';
+
 const getImageUrl = (imagePath) => {
   if (!imagePath) return '/src/assets/recipeSpaceIco.svg';
     
@@ -269,7 +270,7 @@ function UserProfile() {
               createdRecipes.map((recipe) => (
                 <div 
                   key={recipe.id} 
-                  className="recipe-card"
+                  className="profile-recipe-card"
                   onClick={() => handleRecipeClick(recipe.id)}
                   style={{cursor: 'pointer'}}
                 >
@@ -284,10 +285,6 @@ function UserProfile() {
                   </div>
                   <div className='recipe-header'>
                     {renderDifficulty(recipe.difficulty)}
-                    <div className='like-button'>
-                      <img src='/src/assets/heart.svg' alt="Лайки" />
-                      <span>{recipe.likes_count || 0}</span>
-                    </div>
                   </div>
                   <div className='recipe-title'>
                     <h3>{recipe.title}</h3>
@@ -303,7 +300,7 @@ function UserProfile() {
             )}
           </div>
         ) : (
-          <div className="recipes-grid">
+          <div className="profile-recipes-grid">
             {isLoadingFavorites ? (
               <div>Загрузка избранных рецептов...</div>
             ) : errorFavorites ? (
@@ -312,7 +309,7 @@ function UserProfile() {
               favoriteRecipes.map((recipe) => (
                 <div 
                   key={recipe.id} 
-                  className="recipe-card"
+                  className="profile-recipe-card"
                   onClick={() => handleRecipeClick(recipe.id)}
                   style={{cursor: 'pointer'}}
                 >
@@ -328,7 +325,7 @@ function UserProfile() {
                   <div className='recipe-header'>
                     {renderDifficulty(recipe.difficulty)}
                     <div className='like-button'>
-                      <img src='/src/assets/heart.svg' alt="Лайки" />
+                      <img src='/src/assets/heart-red.svg' alt="Лайки" />
                       <span>{recipe.likes_count || 0}</span>
                     </div>
                   </div>

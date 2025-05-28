@@ -126,6 +126,10 @@ export const userApi = createApi({
             ]
           : [{ type: 'Recipe', id: 'LIST' }],
     }),
+  
+  getIsInUserFavorites: builder.query({
+    query: ({userId, recipeId}) => `/${userId}/favorited/${recipeId}`
+    })
 
   })
 });
@@ -141,6 +145,7 @@ export const {
   useDeleteFromUserFavoritesMutation,
   useAddToUserFavoritesMutation,
   useGetCreatedRecipesQuery,
-  useGetFavoriteRecipesQuery
+  useGetFavoriteRecipesQuery,
+  useGetIsInUserFavoritesQuery
 } = userApi;
 

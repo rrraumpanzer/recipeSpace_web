@@ -48,3 +48,14 @@
     border: 1 rem;
     color: #ff6b6b;
 }
+
+  .profile-recipe-card {
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+
+  .profile-recipe-card:hover {
+    transform: scale(1.1);
+  }
