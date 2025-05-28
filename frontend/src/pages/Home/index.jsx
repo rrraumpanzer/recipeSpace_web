@@ -10,6 +10,7 @@ import {
 import { selectCurrentUser } from '../../store/slices/authSlice';
 import './Home.css';
 import '../../components/header/Header.css'
+import {FilterSidebar} from '../../components/FilterSidebar/FilterSidebar';
 
 function Home() {
   const [skip, setSkip] = useState(0);
@@ -20,9 +21,54 @@ function Home() {
   const navigate = useNavigate();
   const currentUser = useSelector(selectCurrentUser);
 
-  // Получаем данные с помощью RTK Query
-  const { data, isLoading, isFetching } = useGetRecipesQuery({ skip, limit });
   
+  
+  // Состояние для хранения параметров фильтрации
+  const [filterParams, setFilterParams] = useState({
+    tags: [],
+    minCookingTime: null,
+    maxCookingTime: null,
+    difficulty: null,
+    ingredients: []
+  });
+  
+  // Преобразуем tags из объекта в массив выбранных тегов
+  const transformTags = (tagsObj) => {
+    return Object.entries(tagsObj)
+      .filter(([_, value]) => value)
+      .map(([key]) => key);
+  };
+
+  // Обработчик изменений фильтров
+  const handleFilterChange = (newFilters) => {
+    const { tags, timeRange, difficulty, ingredients } = newFilters;
+    
+    const newFilterParams = {
+      tags: transformTags(tags),
+      minCookingTime: timeRange[0] || null,
+      maxCookingTime: timeRange[1] || null,
+      difficulty: difficulty || null,
+      ingredients: ingredients || []
+    };
+    
+    setFilterParams(newFilterParams);
+    // Сбрасываем пагинацию при изменении фильтров
+    setRecipes([]);
+    setSkip(0);
+    setHasMore(true);
+  };
+  // Получаем данные с учетом фильтров
+  const { data, isLoading, isFetching, refetch } = useGetRecipesQuery({ 
+    skip, 
+    limit,
+    tags: filterParams.tags,
+    minCookingTime: filterParams.minCookingTime,
+    maxCookingTime: filterParams.maxCookingTime,
+    difficulty: filterParams.difficulty,
+    ingredients: filterParams.ingredients
+  });
+  
+  // Получаем данные с помощью RTK Query
   const updateRecipeFavoriteStatus = (recipeId, isFavorite, likesCountChange) => {
     setRecipes(prev => prev.map(recipe => {
       if (recipe.id === recipeId) {
@@ -103,51 +149,9 @@ function Home() {
 
   return (
     <div className="home">
-      <div className="sidebar">
-        <div className="filter-panel">
-          <h2>Поиск</h2>
-          <input 
-            type="text" 
-            placeholder="Рыба под шоколадом..." 
-            className="search-input"
-          />
-          <div className="filter-section">
-            <h2>Фильтры</h2>
-            <h3>Теги</h3>
-            <label>
-              <input type="checkbox" /> Первое блюдо
-            </label>
-            <label>
-              <input type="checkbox" /> Второе блюдо
-            </label>
-            <label>
-              <input type="checkbox" /> Завтрак
-            </label>
-            <label>
-              <input type="checkbox" /> Салат
-            </label>
-            <label>
-              <input type="checkbox" /> Десерт
-            </label>
-            <label>
-              <input type="checkbox" /> Постное
-            </label>
-            <label>
-              <input type="checkbox" /> Вегетарианское
-            </label>
-            <label>
-              <input type="checkbox" /> Напиток
-            </label>
-            <h3>Время приготовления</h3>
-            <label>
-            <p>
-            <input type="range" min="0" max="280" step="1"></input>
-            </p>
-            </label>
-          </div>
-        </div>
-      </div>
-      <div className="main-content">
+      <FilterSidebar onFilterChange={handleFilterChange} />
+
+    <div className="main-content">
         <div className="recipe-grid">
           {recipes.map((recipe) => (
       <div 

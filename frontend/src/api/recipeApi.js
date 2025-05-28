@@ -85,7 +85,30 @@ export const recipeApi = createApi({
 
 
     getRecipes: builder.query({
-      query: ({ skip = 0, limit = 10 }) => `/?skip=${skip}&limit=${limit}`,
+      query: ({ 
+        skip = 0, 
+        limit = 10, 
+        tags, 
+        maxCookingTime, 
+        minCookingTime, 
+        difficulty, 
+        ingredients 
+      } = {}) => {
+        const params = new URLSearchParams();
+        
+        // Обязательные параметры пагинации
+        params.append('skip', skip);
+        params.append('limit', limit);
+        
+        // Опциональные параметры фильтрации
+        if (tags?.length) tags.forEach(tag => params.append('tags', tag));
+        if (maxCookingTime) params.append('max_cooking_time', maxCookingTime);
+        if (minCookingTime) params.append('min_cooking_time', minCookingTime);
+        if (difficulty) params.append('difficulty', difficulty);
+        if (ingredients?.length) ingredients.forEach(ing => params.append('ingredients', ing));
+        
+        return `/?${params.toString()}`;
+      },
       providesTags: (result) =>
         result
           ? [

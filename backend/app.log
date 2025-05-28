@@ -1,0 +1,72 @@
+2025-05-29 00:45:13,314 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-29 00:45:13,317 - python_multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-05-29 00:45:13,318 - python_multipart.multipart - DEBUG - Calling on_header_value with data[63:89]
+2025-05-29 00:45:13,318 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-29 00:45:13,318 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-29 00:45:13,318 - python_multipart.multipart - DEBUG - Calling on_part_data with data[93:97]
+2025-05-29 00:45:13,318 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-29 00:45:13,319 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-29 00:45:13,319 - python_multipart.multipart - DEBUG - Calling on_header_field with data[141:160]
+2025-05-29 00:45:13,319 - python_multipart.multipart - DEBUG - Calling on_header_value with data[162:188]
+2025-05-29 00:45:13,319 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-29 00:45:13,319 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-29 00:45:13,319 - python_multipart.multipart - DEBUG - Calling on_part_data with data[192:209]
+2025-05-29 00:45:13,319 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-29 00:45:13,319 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-05-29 00:45:13,352 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/home/user/.cache/pypoetry/virtualenvs/image2model-jmcJaqWe-py3.10/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-29 00:45:13,354 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '<unknown>'
+2025-05-29 00:45:13,355 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
+2025-05-29 00:45:34,618 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-29 00:45:34,619 - python_multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-05-29 00:45:34,619 - python_multipart.multipart - DEBUG - Calling on_header_value with data[63:86]
+2025-05-29 00:45:34,619 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-29 00:45:34,619 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-29 00:45:34,619 - python_multipart.multipart - DEBUG - Calling on_part_data with data[90:124]
+2025-05-29 00:45:34,619 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-29 00:45:34,619 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-29 00:45:34,619 - python_multipart.multipart - DEBUG - Calling on_header_field with data[168:187]
+2025-05-29 00:45:34,619 - python_multipart.multipart - DEBUG - Calling on_header_value with data[189:218]
+2025-05-29 00:45:34,620 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-29 00:45:34,620 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-29 00:45:34,620 - python_multipart.multipart - DEBUG - Calling on_part_data with data[222:308]
+2025-05-29 00:45:34,620 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-29 00:45:34,620 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-29 00:45:34,620 - python_multipart.multipart - DEBUG - Calling on_header_field with data[352:371]
+2025-05-29 00:45:34,620 - python_multipart.multipart - DEBUG - Calling on_header_value with data[373:395]
+2025-05-29 00:45:34,620 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-29 00:45:34,620 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-29 00:45:34,620 - python_multipart.multipart - DEBUG - Calling on_part_data with data[399:408]
+2025-05-29 00:45:34,621 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-29 00:45:34,621 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-29 00:45:34,621 - python_multipart.multipart - DEBUG - Calling on_header_field with data[452:471]
+2025-05-29 00:45:34,621 - python_multipart.multipart - DEBUG - Calling on_header_value with data[473:502]
+2025-05-29 00:45:34,621 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-29 00:45:34,621 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-29 00:45:34,621 - python_multipart.multipart - DEBUG - Calling on_part_data with data[506:529]
+2025-05-29 00:45:34,621 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-29 00:45:34,621 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-29 00:45:34,621 - python_multipart.multipart - DEBUG - Calling on_header_field with data[573:592]
+2025-05-29 00:45:34,622 - python_multipart.multipart - DEBUG - Calling on_header_value with data[594:632]
+2025-05-29 00:45:34,622 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-29 00:45:34,622 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-29 00:45:34,622 - python_multipart.multipart - DEBUG - Calling on_part_data with data[636:638]
+2025-05-29 00:45:34,622 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-29 00:45:34,622 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-29 00:45:34,622 - python_multipart.multipart - DEBUG - Calling on_header_field with data[682:701]
+2025-05-29 00:45:34,622 - python_multipart.multipart - DEBUG - Calling on_header_value with data[703:731]
+2025-05-29 00:45:34,622 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-29 00:45:34,622 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-29 00:45:34,623 - python_multipart.multipart - DEBUG - Calling on_part_data with data[735:736]
+2025-05-29 00:45:34,623 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-29 00:45:34,623 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-05-29 00:45:34,623 - python_multipart.multipart - DEBUG - Calling on_header_field with data[780:799]
+2025-05-29 00:45:34,623 - python_multipart.multipart - DEBUG - Calling on_header_value with data[801:824]
+2025-05-29 00:45:34,623 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-05-29 00:45:34,623 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-05-29 00:45:34,623 - python_multipart.multipart - DEBUG - Calling on_part_data with data[828:2318]
+2025-05-29 00:45:34,623 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-05-29 00:45:34,624 - python_multipart.multipart - DEBUG - Calling on_end with no data
