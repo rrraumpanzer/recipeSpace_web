@@ -1,9 +1,7 @@
-from dotenv import load_dotenv
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-load_dotenv()
 
 DATABASE_URL: str = 'postgresql://web_rsp_service:Qici45d@localhost:5432/recipespace_database'
 # postgresql://user:password@host:port/database
