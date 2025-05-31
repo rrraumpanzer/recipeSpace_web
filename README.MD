@@ -43,11 +43,19 @@ PGPASSWORD=пароль psql -U web_rsp_service -d recipespace_database -h 127.0
 Для всех эндпоинтов требующих авторизации необходимо добавлять в запрос "Authorization: Bearer *********", где звёздочки это токен полученный по запросу /token"
 
 http POST http://localhost:8000/user/signup username="Ivan" email="ivan2@example.com" password="strongpassword123";
+
 http -v PATCH http://localhost:8000/user/update/2 bio="Тестовая биография";
+
 http -v DELETE http://localhost:8000/user/delete/2;
+
 http --form POST http://localhost:8000/user/token username="Ivan" password="strongpassword123"
+
 http GET http://localhost:8000/user/me/ "Authorization: Bearer *********"  Вместо звёздочек подставить токен
+
 http GET http://localhost:8000/user/me/ Без авторизации выдаст ошибку
+
 http POST http://localhost:8000/recipe/create title="Рыба под шоколадом" description="Всё понятно из названия" tags:='["fish"]' ingredients:='["fish", "chocolade"]' cooking_time_minutes=10 difficulty=1 steps="fsfas" author_id=1 "Authorization: Bearer *******"
+
 http --form POST http://localhost:8000/user/upload-avatar/1   "Authorization: Bearer *******"   file@./temp/catto.png
+
 http --form POST http://localhost:8000/recipe/upload-image/1  "Authorization: Bearer *******" file@./temp/fisheauchokolat.png
