@@ -86,7 +86,7 @@ sudo service postgresql start
 
 > http --form POST http://localhost:8000/user/token username="Ivan" password="strongpassword123"
 
-http GET http://localhost:8000/user/me/ "Authorization: Bearer *********"  
+> http GET http://localhost:8000/user/me/ "Authorization: Bearer *********"  
   Вместо звёздочек подставить токен
 
 > http GET http://localhost:8000/user/me/ 
