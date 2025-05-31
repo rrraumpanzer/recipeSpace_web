@@ -49,26 +49,29 @@ sudo service postgresql start
 > psql recipespace_database 
 - подключение к БД
 
-sudo -u postgres psql recipespace_database - войти через рут пользователя чтоб редачить таблицу (не рекомендуется)
+> sudo -u postgres psql recipespace_database 
+- войти через рут пользователя чтоб редачить таблицу (не рекомендуется)
 
-SELECT * FROM название_таблицы; - посмотреть содержимое
+> SELECT * FROM название_таблицы; 
+- посмотреть содержимое
 
-sudo ss -tulnp | grep postgres - проверка подключения
+> sudo ss -tulnp | grep postgres 
+- проверка подключения
 
 ### Если проблемы с peer подключением
 
-sudo nano /etc/postgresql/<версия>/main/pg_hba.conf
+> sudo nano /etc/postgresql/<версия>/main/pg_hba.conf
 вставить строку
 
-local   recipespace_database    web_rsp_service                md5
+> local   recipespace_database    web_rsp_service                md5
 
 сохранить
 
-перезапустить: sudo service postgresql restart
+перезапустить: > sudo service postgresql restart
 
 ### Подключение к БД через пользователя для веб-сервиса
 
-PGPASSWORD=пароль psql -U web_rsp_service -d recipespace_database -h 127.0.0.1
+>PGPASSWORD=пароль psql -U web_rsp_service -d recipespace_database -h 127.0.0.1;
 
 ### Проверка эндпоинтов через HTTPie
 
