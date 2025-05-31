@@ -37,13 +37,17 @@ sudo service postgresql start
 
 *Полезные команды*
 
-\du - все пользователи
+> \du 
+- все пользователи
 
-\l - все базы. База сервиса "recipespace_database"
+> \l 
+- все базы. База сервиса "recipespace_database"
 
-\dt - все таблицы
+> \dt 
+- все таблицы
 
-psql recipespace_database - подключение к БД
+> psql recipespace_database 
+- подключение к БД
 
 sudo -u postgres psql recipespace_database - войти через рут пользователя чтоб редачить таблицу (не рекомендуется)
 
