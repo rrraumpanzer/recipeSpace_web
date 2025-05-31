@@ -1,10 +1,32 @@
+### Настройка PostgreSQL
+Необходимо создать базу данных и пользователя, со всеми правами на неё, а желательно вообще авторством
+
+В файлах бекенде в файлах alembic.ini и database/connection.py обновить URL для БД (установить название пользователя, пароль, имя БД) 
+
+Зайдя в папку backend, зайти в терминал poetry
+
+>poetry shell
+
+Установить зависимости
+
+>poetry install
+
+Произвести миграцию таблиц базы данных
+
+>alembic upgrade head
+
+
 ### Запуск бекенда
-cd backend
-poetry run python run.py
+
+> cd backend
+
+> poetry run python run.py
 
 ### Запуск фронтенда
-cd frontend
-npm run dev
+
+> cd frontend
+
+> npm run dev
 
 ### Работа с БД
 
@@ -16,11 +38,17 @@ sudo service postgresql start
 *Полезные команды*
 
 \du - все пользователи
+
 \l - все базы. База сервиса "recipespace_database"
+
 \dt - все таблицы
+
 psql recipespace_database - подключение к БД
+
 sudo -u postgres psql recipespace_database - войти через рут пользователя чтоб редачить таблицу (не рекомендуется)
+
 SELECT * FROM название_таблицы; - посмотреть содержимое
+
 sudo ss -tulnp | grep postgres - проверка подключения
 
 ### Если проблемы с peer подключением
