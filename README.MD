@@ -7,10 +7,14 @@ cd frontend
 npm run dev
 
 ### Работа с БД
+
 *Проверка установки и запуск*
+
 psql --version
 sudo service postgresql start
-*Полезные команды
+
+*Полезные команды*
+
 \du - все пользователи
 \l - все базы. База сервиса "recipespace_database"
 \dt - все таблицы
@@ -20,16 +24,22 @@ SELECT * FROM название_таблицы; - посмотреть содер
 sudo ss -tulnp | grep postgres - проверка подключения
 
 ### Если проблемы с peer подключением
+
 sudo nano /etc/postgresql/<версия>/main/pg_hba.conf
 вставить строку
+
 local   recipespace_database    web_rsp_service                md5
+
 сохранить
+
 перезапустить: sudo service postgresql restart
 
 ### Подключение к БД через пользователя для веб-сервиса
+
 PGPASSWORD=пароль psql -U web_rsp_service -d recipespace_database -h 127.0.0.1
 
 ### Проверка эндпоинтов через HTTPie
+
 Для всех эндпоинтов требующих авторизации необходимо добавлять в запрос "Authorization: Bearer *********", где звёздочки это токен полученный по запросу /token"
 
 http POST http://localhost:8000/user/signup username="Ivan" email="ivan2@example.com" password="strongpassword123";
